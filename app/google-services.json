@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1004966314283",
+    "firebase_url": "https://tribalphotos-bbfee.firebaseio.com",
+    "project_id": "tribalphotos-bbfee",
+    "storage_bucket": "tribalphotos-bbfee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004966314283:android:b369a787799a05e52d856e",
+        "android_client_info": {
+          "package_name": "com.tribal.tribalphotos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1004966314283-nb66ro5gdkc9m043m93k9osli022i555.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tribal.tribalphotos",
+            "certificate_hash": "84b1aa183bcf8e1ed692db59de571b24280a1ef0"
+          }
+        },
+        {
+          "client_id": "1004966314283-078gim1q5rvfa2mt9frslm1vh2qk0i3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBytuwQ3N_nt3duVafPOFN17Pvkq2vveCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1004966314283-078gim1q5rvfa2mt9frslm1vh2qk0i3n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
