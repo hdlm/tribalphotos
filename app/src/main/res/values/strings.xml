@@ -12,4 +12,9 @@
     <string name="fragment_photo_gallery_title_group">PHOTOS</string>
     <string name="fragment_photo_gallery_title_likes">Likes:</string>
 
+    <string name="fragment_photo_favorite_title_username">User:</string>
+    <string name="fragment_photo_favorite_title_info">Information:</string>
+    <string name="fragment_photo_favorite_username">_user_</string>
+    <string name="fragment_photo_favorite_info">_information_</string>
+
 </resources>

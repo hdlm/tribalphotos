@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private var mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         return@OnNavigationItemSelectedListener when(it.itemId) {
             R.id.navigation_home -> {
+                replaceFragment(PhotoGalleryFragment.newInstance())
 //                replaceFragment(HomeFragment.newInstance())
                 true
             }
@@ -45,10 +46,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         replaceFragment(PhotoGalleryFragment.newInstance())
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        txtMessage = findViewById<TextView>(R.id.message)
-        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
 
 
 //        val navView: BottomNavigationView = findViewById(R.id.nav_view)
