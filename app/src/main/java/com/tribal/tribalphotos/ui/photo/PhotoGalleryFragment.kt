@@ -12,17 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Photo
+import com.tribal.tribalphotos.repository.TribalPhotosRepository
+import com.tribal.tribalphotos.repository.TribalPhotosRepositoryImpl
 import com.tribal.tribalphotos.ui.TribalPhotosViewModel
 import com.tribal.tribalphotos.ui.adapter.RecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
 class PhotoGalleryFragment : Fragment(), KoinComponent {
 
     private val tribalPhotosViewModel: TribalPhotosViewModel by viewModel()
     private lateinit var linearLayoutManager: LinearLayoutManager
+//    protected val repository: TribalPhotosRepositoryImpl by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +39,11 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
 
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
 
-        observeViewModel()
+//        val sayHello = repository.giveHello()
+        val probando: String = tribalPhotosViewModel.cadenaPrueba
+//        observeViewModel()
         tribalPhotosViewModel.getRandomPhotos()
+
 
         initViews()
 

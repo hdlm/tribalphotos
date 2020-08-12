@@ -14,6 +14,7 @@ class TribalPhotosViewModel(
 
     val photosLiveData = MutableLiveData<List<Photo?>>()
     lateinit var photosArrayList: List<Photo?>
+    val cadenaPrueba: String = "HOLA"
 
 
     fun getRandomPhotos() =
@@ -42,4 +43,7 @@ class TribalPhotosViewModel(
             }
         }
     }
+
+
+    fun sayHello() = "todo fino ${tribalPhotosRepository.giveHello()} fron $this"
 }

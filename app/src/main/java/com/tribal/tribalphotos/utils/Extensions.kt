@@ -8,7 +8,7 @@ import com.google.gson.Gson
 
 inline fun <reified T : Any> Any?.mapTo(newClass: Class<T>): T? =
     Gson().run {
-        fromJson(toJson(this@mapTo), newClass)
+        fromJson((this@mapTo).toString(), newClass)
     }
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {

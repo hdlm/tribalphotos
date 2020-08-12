@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        Log.d(TAG, "${this.javaClass.simpleName} -> replaceFragment() invoked to ${fragment.toString()}")
+        Log.d(TAG, "${this.javaClass.simpleName} -> replaceFragment() invoked to ${fragment.javaClass.simpleName }")
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentHolder, fragment)
