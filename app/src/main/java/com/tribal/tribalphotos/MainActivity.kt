@@ -1,42 +1,54 @@
 package com.tribal.tribalphotos
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.tribal.tribalphotos.ui.photo.PhotoGalleryFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        val TAG = "TAGTAG"
+    }
+
     private lateinit var txtMessage: TextView
-    private var mOnNavigationItemSelectedLister = BottomNavigationView.OnNavigationItemSelectedListener {
+    private var mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         return@OnNavigationItemSelectedListener when(it.itemId) {
             R.id.navigation_home -> {
-                txtMessage.setText("Home")
+//                replaceFragment(HomeFragment.newInstance())
                 true
             }
             R.id.navigation_photos -> {
-                txtMessage.setText("See Photos")
+                replaceFragment(PhotoGalleryFragment.newInstance())
                 true
             }
             R.id.navigation_favorite -> {
-                txtMessage.setText("Favorites")
+//                replaceFragment(PhotoGalleryFragment.newInstance())
                 true
             }
             R.id.navigation_profile -> {
-                txtMessage.setText("Profile")
+//                replaceFragment(PhotoGalleryFragment.newInstance())
                 true
             }
             else -> false
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        replaceFragment(PhotoGalleryFragment.newInstance())
+        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         txtMessage = findViewById<TextView>(R.id.message)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedLister)
+        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
 
 
 //        val navView: BottomNavigationView = findViewById(R.id.nav_view)
@@ -49,4 +61,13 @@ class MainActivity : AppCompatActivity() {
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
     }
+
+    private fun replaceFragment(fragment: Fragment) {
+        Log.d(TAG, "${this.javaClass.simpleName} -> replaceFragment() invoked to ${fragment.toString()}")
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragmentHolder, fragment)
+            .commit()
+    }
+
 }

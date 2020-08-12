@@ -12,14 +12,16 @@ class TribalPhotosViewModel(
     private val tribalPhotosRepository: TribalPhotosRepository
 ): BaseViewModel() {
 
-    val photos = MutableLiveData<List<Photo?>>()
+    val photosLiveData = MutableLiveData<List<Photo?>>()
+    lateinit var photosArrayList: List<Photo?>
 
-    fun getPhotos() =
+
+    fun getRandomPhotos() =
         viewModelScope.launch {
-            getPhotosAsync()
+            getRandomPhotosAsync()
         }
 
-    private suspend fun getPhotosAsync() {
+    private suspend fun getRandomPhotosAsync() {
         val result = runCatching {
             showLoading()
             tribalPhotosRepository.getPhotos()
@@ -29,7 +31,10 @@ class TribalPhotosViewModel(
             dismissLoading()
             onSuccess {
                 it?.let {
-                    photos.postValue(it)
+                    photosArrayList = it
+                    photosLiveData.postValue(photosArrayList)
+                } ?: run {
+                    photosArrayList = ArrayList()
                 }
             }
             onFailure {

@@ -1,11 +1,11 @@
 package com.tribal.tribalphotos.model
 
 data class Photo (
-    var likes: Int = 0,
-    val author: String? = null,
-    val urlPhoto: String? = null,
-    val urlProfle: String? = null,
-    val descripImg: String? = null,
-    val descripProfile: String? = null
+    val id: String? = null,
+    val description: String? = null,
+    val alt_description: String? = null,
+    val urls:Urls? = null,
+    val likes: Int = 0,
+    val user: Username? = null
 
 )
