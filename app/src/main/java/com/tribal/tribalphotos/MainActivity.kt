@@ -2,7 +2,6 @@ package com.tribal.tribalphotos
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,24 +10,23 @@ import com.tribal.tribalphotos.ui.home.HomeFragment
 import com.tribal.tribalphotos.ui.photo.PhotoGalleryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        val TAG = "TAGTAG"
-    }
+    private var fragmentPhotoGallery : PhotoGalleryFragment? = null
 
-    private lateinit var txtMessage: TextView
     private var mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         return@OnNavigationItemSelectedListener when(it.itemId) {
             R.id.navigation_home -> {
+                fragmentPhotoGallery = PhotoGalleryFragment()
                 replaceFragment(HomeFragment())
                 true
             }
             R.id.navigation_photos -> {
-                val presenter: PhotoGalleryFragment = get()
-                replaceFragment(presenter)
+                fragmentPhotoGallery ?: run {
+                    fragmentPhotoGallery = PhotoGalleryFragment()
+                }
+                replaceFragment(fragmentPhotoGallery!!)
                 true
             }
             R.id.navigation_favorite -> {
@@ -62,12 +60,20 @@ class MainActivity : AppCompatActivity() {
 //        navView.setupWithNavController(navController)
     }
 
+    private fun showPhotoGallery() {
+
+    }
+
     private fun replaceFragment(fragment: Fragment) {
         Log.d(TAG, "${this.javaClass.simpleName} -> replaceFragment() invoked to ${fragment.javaClass.simpleName }")
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragmentHolder, fragment)
             .commit()
+    }
+
+    companion object {
+        val TAG = "TAGTAG"
     }
 
 }

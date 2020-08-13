@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Photo
@@ -47,6 +49,9 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
     }
 
     private fun initViews() {
+        rvGallery.layoutManager = LinearLayoutManager(context)
+        rvGallery.setHasFixedSize(true)
+
 
     }
 

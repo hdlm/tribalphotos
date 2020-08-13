@@ -1,10 +1,11 @@
 package com.tribal.tribalphotos.ui.di
 
+import com.tribal.tribalphotos.ui.di.modules.repoModule
+import com.tribal.tribalphotos.ui.di.modules.viewModelModule
 import org.koin.core.context.loadKoinModules
 
 
 object TribalPhotosModule {
-    fun init() = loadKoinModules(
-        viewModelModule
-    )
+    private val modules = listOf(viewModelModule, repoModule)
+    fun init() = loadKoinModules( modules )
 }
