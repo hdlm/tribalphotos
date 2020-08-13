@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Favorite
 
-class FavoriteAdapter(private val list: ArrayList<Favorite>,
-                      private val context: Context) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
+class FavoriteAdapter(private val list: List<Favorite>,
+                      private val context: Context?) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = list.size
 
