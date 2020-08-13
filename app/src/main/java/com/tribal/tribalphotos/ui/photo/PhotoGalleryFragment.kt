@@ -7,16 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Photo
-import com.tribal.tribalphotos.repository.TribalPhotosRepository
-import com.tribal.tribalphotos.repository.TribalPhotosRepositoryImpl
 import com.tribal.tribalphotos.ui.TribalPhotosViewModel
-import com.tribal.tribalphotos.ui.adapter.RecyclerAdapter
+import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
+import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
+import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
+import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactoryImpl
+import com.tribal.tribalphotos.utils.makeGoneAlpha
+import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
+import kotlinx.android.synthetic.main.no_items_layout.*
+import kotlinx.android.synthetic.main.recyclerview_item_row.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
@@ -24,7 +27,6 @@ import org.koin.core.KoinComponent
 class PhotoGalleryFragment : Fragment(), KoinComponent {
 
     private val tribalPhotosViewModel: TribalPhotosViewModel by viewModel()
-    private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,7 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
 
         observeViewModel()
+        tribalPhotosViewModel.getRandomPhotos()
 
         initViews()
 
@@ -45,16 +48,12 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
 
     private fun initViews() {
 
-        linearLayoutManager = LinearLayoutManager(context)
-        rvGallery.layoutManager = linearLayoutManager
-
     }
 
     private fun observeViewModel() = tribalPhotosViewModel.run {
+
         photosLiveData.observe (viewLifecycleOwner, Observer {
-            val adapter = RecyclerAdapter(it)
-            rvGallery.layoutManager = linearLayoutManager
-            rvGallery.adapter = adapter
+            setAdapter(it)
         })
 
         loadingState.observe(viewLifecycleOwner, Observer {
@@ -66,12 +65,34 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
         })
     }
 
-
-    companion object {
-        @JvmStatic
-        fun newInstance(): PhotoGalleryFragment {
-            return PhotoGalleryFragment()
+    private fun setAdapter(list: List<Photo?>): Unit {
+        if (list.isEmpty()) {
+            rvGallery.makeGoneAlpha(200) {
+                tvWhoops.text = getString(R.string.fragment_photo_gallery_no_items)
+                lyNoElements.makeVisibleAlpha(200) { }
+            }
+        } else {
+            rvGallery.apply {
+                makeGoneAlpha(50) {
+                    adapter = DynamicAdapter(
+                        typeFactory = PhotoGalleryTypesFactoryImpl(),
+                        items = getPhotosGalleryForAdapter(list)
+                    )
+                    makeVisibleAlpha(100)
+                }
+            }
         }
     }
 
+    private fun getPhotosGalleryForAdapter(list: List<Photo?>): List<ItemModel> {
+        val itemList = ArrayList<ItemModel>()
+        list.forEach {
+            itemList.add(PhotoGalleryItemModel(it!!))
+        }
+        return itemList
+
+    }
+
 }
+
+

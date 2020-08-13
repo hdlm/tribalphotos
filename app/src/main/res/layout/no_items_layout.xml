@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginTop="150dp"
+    android:layout_marginStart="26dp"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginEnd="26dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        android:textColor="#5d6cfd"
+        android:text="@string/whoopsText"
+        android:fontFamily="@font/avenirblack"
+        android:id="@+id/tvWhoops"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvWhoops"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/avenirheavy"
+        android:textSize="14sp"
+        android:textColor="#758fb1"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:id="@+id/tv_whoops"
+        android:text="@string/no_item_favorites"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import com.tribal.tribalphotos.ui.favorite.PhotoFavoriteFragment
 import com.tribal.tribalphotos.ui.home.HomeFragment
 import com.tribal.tribalphotos.ui.photo.PhotoGalleryFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +27,8 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.navigation_photos -> {
-                replaceFragment(PhotoGalleryFragment.newInstance())
+                val presenter: PhotoGalleryFragment = get()
+                replaceFragment(presenter)
                 true
             }
             R.id.navigation_favorite -> {

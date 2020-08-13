@@ -11,10 +11,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_photo_gallery_title_group">PHOTOS</string>
     <string name="fragment_photo_gallery_title_likes">Likes:</string>
+    <string name="fragment_photo_gallery_no_items">We couldn\'t find any image</string>
 
     <string name="fragment_photo_favorite_title_username">User:</string>
     <string name="fragment_photo_favorite_title_info">Information:</string>
     <string name="fragment_photo_favorite_username">_user_</string>
     <string name="fragment_photo_favorite_info">_information_</string>
+
+    <string name="whoopsText">Whoops!</string>
+    <string name="no_item_favorites">You don\'t have any images in\n your favorites. Add them to this\n list by using the star icon on any\n image you like"</string>
 
 </resources>
