@@ -1,14 +1,15 @@
 package com.tribal.tribalphotos.ui.photo
 
+import BeelineLayoutManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.flexbox.*
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Photo
@@ -20,6 +21,7 @@ import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactoryIm
 import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
+import kotlinx.android.synthetic.main.fragment_photo_gallery.view.*
 import kotlinx.android.synthetic.main.no_items_layout.*
 import kotlinx.android.synthetic.main.recyclerview_item_row.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,9 +51,18 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
     }
 
     private fun initViews() {
-        rvGallery.layoutManager = LinearLayoutManager(context)
-        rvGallery.setHasFixedSize(true)
 
+        rvGallery.layoutManager = BeelineLayoutManager().apply {
+            configLookup = object : BeelineLayoutManager.ConfigLookup {
+                override fun getSpanSize(position: Int): Int = 2
+                override fun getZIndex(position: Int): Float = 1f
+                override fun isSolid(position: Int): Boolean = true
+                override fun getVerticalOverlay(position: Int): Float = 0f
+                override fun getGravity(position: Int): BeelineLayoutManager.Gravity = BeelineLayoutManager.Gravity.LEFT
+            }
+        }
+        rvGallery.clipToOutline = true
+        rvGallery.setHasFixedSize(true)
 
     }
 
@@ -88,6 +99,7 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
             }
         }
     }
+
 
     private fun getPhotosGalleryForAdapter(list: List<Photo?>): List<ItemModel> {
         val itemList = ArrayList<ItemModel>()

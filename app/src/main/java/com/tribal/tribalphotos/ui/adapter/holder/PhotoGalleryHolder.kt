@@ -1,9 +1,15 @@
 package com.tribal.tribalphotos.ui.adapter.holder
 
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Transformation
+import com.tribal.tribalphotos.MainActivity
+import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
 class PhotoGalleryHolder(private val view: View) : DynamicAdapterViewHolder<PhotoGalleryItemModel>(view) {
@@ -12,10 +18,25 @@ class PhotoGalleryHolder(private val view: View) : DynamicAdapterViewHolder<Phot
 
             tvLikes?.text = item.model.likes.toString()
             tvUsername?.text = item.model.user?.name
+            imgvFavorite.setOnClickListener {
+                //PENDING save the favorite photo
+                Log.d(MainActivity.TAG, "new favorite photo: ${item.model.id}")
+                imgvFavorite.setImageResource(android.R.drawable.star_on)
+            }
 
-            Picasso.get().load(item.model.urls?.full).into(view.imgvItem)
+            val imgvPicture: ImageView = findViewById<ImageView>(R.id.imgvItem)
+            imgvPicture.clipToOutline = true
+
+            // round corners
+            val radius = 20
+            val margin = 5
+            val transformation: Transformation = RoundedCornersTransformation(radius, margin)
+            Picasso.get().load(item.model.urls?.regular).transform(transformation).into(imgvPicture)
+
         }
 
+
     }
+
 
 }

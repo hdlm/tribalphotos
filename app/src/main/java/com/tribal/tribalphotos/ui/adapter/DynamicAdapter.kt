@@ -1,8 +1,10 @@
 package com.tribal.tribalphotos.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.ui.adapter.holder.DynamicAdapterViewHolder
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.typeFactory.BaseTypesFactory
@@ -10,7 +12,7 @@ import com.tribal.tribalphotos.ui.adapter.typeFactory.BaseTypesFactory
 class DynamicAdapter(
     private val typeFactory: BaseTypesFactory,
     var items: List<ItemModel>,
-    private val onClick: (ItemModel) -> Unit = {}
+    private val onClick: (ItemModel) -> Unit = { }
 ) : RecyclerView.Adapter<DynamicAdapterViewHolder<ItemModel>>() {
 
     override fun getItemCount() = items.count()

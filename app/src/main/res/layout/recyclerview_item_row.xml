@@ -11,27 +11,33 @@
             android:id="@+id/imgvItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="3dp"
             android:adjustViewBounds="true"
+            android:padding="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:outlineProvider="background"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:background="@drawable/round_outline" />
 
         <TextView
             android:id="@+id/tvTitleLikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/avenirblack"
             android:text="@string/fragment_photo_gallery_title_likes"
-            app:layout_constraintTop_toBottomOf="@+id/imgvItem"
-            app:layout_constraintStart_toStartOf="@+id/imgvItem" />
+            android:textColor="@color/colorPrimaryLight"
+            app:layout_constraintBottom_toTopOf="@+id/tvUsername"
+            app:layout_constraintStart_toStartOf="@+id/tvUsername" />
 
         <TextView
             android:id="@+id/tvLikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/avenirblackoblique"
+            android:textColor="@color/colorPrimaryLight"
             android:text="99"
             app:layout_constraintStart_toEndOf="@+id/tvTitleLikes"
             app:layout_constraintTop_toTopOf="@+id/tvTitleLikes" />
@@ -40,14 +46,27 @@
             android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/avenirblack"
+            android:textColor="@color/colorPrimaryLight"
             android:text="hdelamano"
-            app:layout_constraintTop_toBottomOf="@+id/tvLikes"
-            app:layout_constraintStart_toStartOf="@+id/tvTitleLikes" />
+            app:layout_constraintBottom_toBottomOf="@+id/imgvItem"
+            app:layout_constraintStart_toStartOf="@+id/imgvItem" />
+
+        <ImageView
+            android:id="@+id/imgvFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/imgvItem"
+            app:layout_constraintEnd_toEndOf="@+id/imgvItem"
+            app:srcCompat="@android:drawable/star_off" />
 
         <include layout="@layout/no_items_layout"
             android:visibility="gone"
             android:id="@+id/lyNoElements"
             />
+
 
 
 

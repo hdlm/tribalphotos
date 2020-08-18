@@ -235,6 +235,24 @@ class BeelineLayoutManager : RecyclerView.LayoutManager() {
 
             val view = recycler.getViewForPosition(i)
             addView(view)
+//            view.setBeelineLayoutParams(i)
+            if (i == 0) {
+                configLookup = object : BeelineLayoutManager.ConfigLookup {
+                    override fun getSpanSize(position: Int): Int = 2
+                    override fun getZIndex(position: Int): Float = 1f
+                    override fun isSolid(position: Int): Boolean = true
+                    override fun getVerticalOverlay(position: Int): Float = 0f
+                    override fun getGravity(position: Int): Gravity = Gravity.LEFT
+                }
+            } else {
+                configLookup = object : BeelineLayoutManager.ConfigLookup {
+                    override fun getSpanSize(position: Int): Int = 1
+                    override fun getZIndex(position: Int): Float = 1f
+                    override fun isSolid(position: Int): Boolean = true
+                    override fun getVerticalOverlay(position: Int): Float = 0.5f
+                    override fun getGravity(position: Int): BeelineLayoutManager.Gravity = if (i % 2 == 0) Gravity.RIGHT else Gravity.LEFT
+                }
+            }
             view.setBeelineLayoutParams(i)
             view.measure()
             val lp = view.layoutParams()
@@ -257,6 +275,8 @@ class BeelineLayoutManager : RecyclerView.LayoutManager() {
     }
 
     private fun fillTop(recycler: RecyclerView.Recycler) {
+        //PENDING replicar as fillBottom lookup
+
         if (childCount == 0) return
 
         val firstChild = getChildAt(0)!!
