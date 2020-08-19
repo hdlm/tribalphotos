@@ -1,7 +1,6 @@
 package com.tribal.tribalphotos.ui.photo
 
 import BeelineLayoutManager
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.google.android.flexbox.*
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
-import com.tribal.tribalphotos.model.Photo
+import com.tribal.tribalphotos.model.unsplash.Photo
 import com.tribal.tribalphotos.ui.TribalPhotosViewModel
 import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
@@ -21,7 +19,6 @@ import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactoryIm
 import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
-import kotlinx.android.synthetic.main.fragment_photo_gallery.view.*
 import kotlinx.android.synthetic.main.no_items_layout.*
 import kotlinx.android.synthetic.main.recyclerview_item_row.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

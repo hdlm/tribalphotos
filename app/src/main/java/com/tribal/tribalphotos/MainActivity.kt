@@ -14,6 +14,7 @@ import org.koin.android.ext.android.get
 class MainActivity : AppCompatActivity() {
 
     private var fragmentPhotoGallery : PhotoGalleryFragment? = null
+    private var fragmentPhotoFavorite: PhotoFavoriteFragment? = null
 
     private var mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         return@OnNavigationItemSelectedListener when(it.itemId) {
@@ -30,7 +31,10 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.navigation_favorite -> {
-                replaceFragment(PhotoFavoriteFragment.newInstance())
+                fragmentPhotoFavorite ?: run {
+                    fragmentPhotoFavorite = PhotoFavoriteFragment()
+                }
+                replaceFragment(fragmentPhotoFavorite!!)
                 true
             }
             R.id.navigation_profile -> {

@@ -1,9 +1,11 @@
 package com.tribal.tribalphotos.repository
 
-import com.tribal.tribalphotos.model.Photo
+import com.tribal.tribalphotos.model.Favorite
+import com.tribal.tribalphotos.model.unsplash.Photo
 
 interface TribalPhotosRepository {
 
     suspend fun getPhotos(): List<Photo?>?
-    fun giveHello(): String
+
+    suspend fun getFavorites(): List<Favorite?>
 }

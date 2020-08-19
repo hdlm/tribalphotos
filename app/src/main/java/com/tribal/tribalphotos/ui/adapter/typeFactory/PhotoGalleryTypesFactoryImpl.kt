@@ -2,7 +2,7 @@ package com.tribal.tribalphotos.ui.adapter.typeFactory
 
 import android.view.View
 import com.tribal.tribalphotos.R
-import com.tribal.tribalphotos.model.Photo
+import com.tribal.tribalphotos.model.unsplash.Photo
 import com.tribal.tribalphotos.ui.adapter.holder.DynamicAdapterViewHolder
 import com.tribal.tribalphotos.ui.adapter.holder.PhotoGalleryHolder
 

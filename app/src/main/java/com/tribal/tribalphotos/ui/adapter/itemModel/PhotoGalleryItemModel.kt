@@ -1,6 +1,6 @@
 package com.tribal.tribalphotos.ui.adapter.itemModel
 
-import com.tribal.tribalphotos.model.Photo
+import com.tribal.tribalphotos.model.unsplash.Photo
 import com.tribal.tribalphotos.ui.adapter.typeFactory.BaseTypesFactory
 import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactory
 

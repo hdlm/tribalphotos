@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:outlineProvider="background"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:background="@drawable/round_outline" />
+
+    <TextView
+        android:id="@+id/tvTitleDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirheavy"
+        android:text="@string/fragment_photo_favorite_title_group"
+        android:textSize="@dimen/font_size_textview_header"
+        app:layout_constraintTop_toBottomOf="@+id/imgItem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <TextView
+        android:id="@+id/tvTitleUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="@string/fragment_photo_favorite_title_username"
+        android:textSize="@dimen/font_size_textview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetails" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="joe"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTitleUsername"
+        app:layout_constraintTop_toTopOf="@+id/tvTitleUsername" />
+
+    <TextView
+        android:id="@+id/tvTitlePortfolio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="@string/fragment_photo_favorite_title_portfolio"
+        android:textSize="@dimen/font_size_textview"
+        app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleUsername" />
+
+    <TextView
+        android:id="@+id/tvPortfolio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="portfolio"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTitlePortfolio"
+        app:layout_constraintTop_toTopOf="@+id/tvTitlePortfolio" />
+
+    <TextView
+        android:id="@+id/tvTitleBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="@string/fragment_photo_favorite_title_bio"
+        android:textSize="@dimen/font_size_textview"
+        app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitlePortfolio" />
+
+    <TextView
+        android:id="@+id/tvBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="bio"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTitleBio"
+        app:layout_constraintTop_toTopOf="@+id/tvTitleBio" />
+
+    <TextView
+        android:id="@+id/tvTitleTotalPhotos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="@string/fragment_photo_favorite_title_total_photos"
+        android:textSize="@dimen/font_size_textview"
+        app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleBio" />
+
+    <TextView
+        android:id="@+id/tvTotalPhotos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="0"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTitleTotalPhotos"
+        app:layout_constraintTop_toTopOf="@+id/tvTitleTotalPhotos" />
+
+    <Button
+        android:id="@+id/btnRemoveFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_photo_favorite_button"
+        android:fontFamily="@font/avenirmedium"
+        android:gravity="center"
+        android:text="@string/fragment_photo_favorite_button_remove_favorite"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/font_size_button"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleTotalPhotos" />
+
+    <include layout="@layout/no_items_layout"
+        android:visibility="gone"
+        android:id="@+id/lyNoElements" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

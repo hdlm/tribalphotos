@@ -3,41 +3,40 @@ package com.tribal.tribalphotos.ui
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.tribal.tribalphotos.model.unsplash.Photo
+import com.tribal.tribalphotos.model.Favorite
 import com.tribal.tribalphotos.repository.TribalPhotosRepository
 import com.tribal.tribalphotos.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class TribalPhotosViewModel(
+class TribalFavoritesViewModel (
     private val tribalPhotosRepository: TribalPhotosRepository
 ): BaseViewModel() {
+    val favoritesLiveData = MutableLiveData<List<Favorite?>>()
+    lateinit var favoritesArrayList: List<Favorite?>
 
-    val photosLiveData = MutableLiveData<List<Photo?>>()
-    lateinit var photosArrayList: List<Photo?>
-
-    fun getRandomPhotos() =
+    fun getUserInfo() =
         viewModelScope.launch {
-            getRandomPhotosAsync()
+            getUserInfoAsync()
         }
 
-    private suspend fun getRandomPhotosAsync() {
+    private suspend fun  getUserInfoAsync() {
         val result = runCatching {
             showLoading()
-            tribalPhotosRepository.getPhotos()
+            tribalPhotosRepository.getFavorites()
         }
 
         with(result) {
             dismissLoading()
             onSuccess {
-                it?.let {
-                    photosArrayList = it
-                    photosLiveData.postValue(photosArrayList)
+                it?.let{
+                    favoritesArrayList = it
+                    favoritesLiveData.postValue(favoritesArrayList)
                 } ?: run {
-                    photosArrayList = ArrayList()
+                    favoritesArrayList = ArrayList()
                 }
-            }
-            onFailure {
-                Log.e("TAGTAG", it.toString())
+                onFailure {
+                    Log.e("TAGTAG", it.toString())
+                }
             }
         }
     }

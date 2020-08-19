@@ -13,10 +13,15 @@
     <string name="fragment_photo_gallery_title_likes">Likes:</string>
     <string name="fragment_photo_gallery_no_items">We couldn\'t find any image</string>
 
-    <string name="fragment_photo_favorite_title_username">User:</string>
-    <string name="fragment_photo_favorite_title_info">Information:</string>
-    <string name="fragment_photo_favorite_username">_user_</string>
-    <string name="fragment_photo_favorite_info">_information_</string>
+    <string name="fragment_photo_favorite_title_group">DETAILS</string>
+    <string name="fragment_photo_favorite_txt_search_hint">Search</string>
+    <string name="fragment_photo_favorite_title_username">Username:</string>
+    <string name="fragment_photo_favorite_title_name">Name:</string>
+    <string name="fragment_photo_favorite_title_info">Portfolio:</string>
+    <string name="fragment_photo_favorite_title_portfolio">Portfolio:</string>
+    <string name="fragment_photo_favorite_title_bio">Bio:</string>
+    <string name="fragment_photo_favorite_title_total_photos">Total Photos:</string>
+    <string name="fragment_photo_favorite_button_remove_favorite">Remove</string>
 
     <string name="whoopsText">Whoops!</string>
     <string name="no_item_favorites">You don\'t have any images in\n your favorites. Add them to this\n list by using the star icon on any\n image you like"</string>
