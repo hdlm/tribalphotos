@@ -6,18 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Favorite
 import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
 import com.tribal.tribalphotos.ui.adapter.itemModel.FavoriteItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
-import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactoryImpl
+import com.tribal.tribalphotos.ui.adapter.typeFactory.FavoriteTypesFactoryImpl
 import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
-import kotlinx.android.synthetic.main.fragment_photo_gallery.*
+import kotlinx.android.synthetic.main.fragment_photo_favorite.*
 import kotlinx.android.synthetic.main.no_items_layout.*
-import kotlinx.android.synthetic.main.recyclerview_item_row.*
+import kotlinx.android.synthetic.main.recyclerview_item_favorite_row.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
@@ -43,7 +45,6 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
     }
 
-    //PENDING teminar la implementacion de los metodos de la clase
     private fun initView(): Unit {
 
 //        rvGallery.layoutManager = BeelineLayoutManager().apply {
@@ -56,26 +57,38 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 //            }
 //        }
 //        rvGallery.clipToOutline = true
-        rvGallery.setHasFixedSize(true)
+        rvFavorite.layoutManager = LinearLayoutManager(context)
+        rvFavorite.setHasFixedSize(true)
 
     }
 
     private fun observeViewModel() = tribalFavoriteViewModelPhoto.run {
+        favoritesLiveData.observe (viewLifecycleOwner, {
+            setAdapter(it)
+        })
+
+        loadingState.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                // skeleton.show()
+            } else {
+                //skeleton.hide()
+            }
+        })
 
     }
 
     private fun setAdapter (list: List<Favorite?>): Unit{
 
         if (list.isEmpty()) {
-            rvGallery.makeGoneAlpha(200) {
-                tvWhoops.text = getString(R.string.fragment_photo_gallery_no_items)
+            rvFavorite.makeGoneAlpha(200) {
+                tvWhoops.text = getString(R.string.fragment_photo_favorite_no_items)
                 lyNoElements.makeVisibleAlpha(200) { }
             }
         } else {
-            rvGallery.apply {
+            rvFavorite.apply {
                 makeGoneAlpha(50) {
                     adapter = DynamicAdapter(
-                        typeFactory = PhotoGalleryTypesFactoryImpl(),
+                        typeFactory = FavoriteTypesFactoryImpl(),
                         items = getFavoritesForAdapter(list)
                     )
                     makeVisibleAlpha(100)
@@ -91,6 +104,5 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
         }
         return itemList
     }
-
 
 }

@@ -16,7 +16,6 @@ import kotlin.coroutines.resumeWithException
 
 class PhotosRepositoryImpl(context: Context) : PhotosRepository, KoinComponent {
     private var queue = VolleyClient.getInstance(context)
-    val url = "https://api.unsplash.com/photos/?client_id=oP_fIPn5u0SWwECyN5Ko7dvl5bFJ1gX_PXenVSsPg3Q&random?count=10"
 
     override suspend fun getPhotos(): List<Photo?>? =
         suspendCancellableCoroutine { cont ->

@@ -19,5 +19,4 @@ interface FavoriteDao {
     @Query("SELECT * FROM favorite WHERE username = :username")
     fun getFavoritesByUsername(username: String) : List<Favorite>
 
-
 }

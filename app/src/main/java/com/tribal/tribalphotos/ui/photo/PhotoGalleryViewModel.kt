@@ -3,13 +3,14 @@ package com.tribal.tribalphotos.ui.photo
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.model.unsplash.Photo
 import com.tribal.tribalphotos.repository.PhotosRepository
 import com.tribal.tribalphotos.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class PhotoGalleryViewModel(
-    private val tribalPhotosRepository: PhotosRepository
+    private val photosRepository: PhotosRepository
 ): BaseViewModel() {
 
     val photosLiveData = MutableLiveData<List<Photo?>>()
@@ -23,7 +24,7 @@ class PhotoGalleryViewModel(
     private suspend fun getRandomPhotosAsync() {
         val result = runCatching {
             showLoading()
-            tribalPhotosRepository.getPhotos()
+            photosRepository.getPhotos()
         }
 
         with(result) {
@@ -37,7 +38,7 @@ class PhotoGalleryViewModel(
                 }
             }
             onFailure {
-                Log.e("TAGTAG", it.toString())
+                Log.e(MainActivity.TAG, it.toString())
             }
         }
     }

@@ -1,17 +1,46 @@
 package com.tribal.tribalphotos.repository
 
-import androidx.lifecycle.LiveData
+import android.content.Context
 import com.tribal.tribalphotos.model.Favorite
+import com.tribal.tribalphotos.ui.di.modules.viewModelModule
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
 
-class FavoriteRepositoryImpl(private val favoriteDao: FavoriteDao) : FavoritesRepository {
+class FavoriteRepositoryImpl(context: Context) : FavoritesRepository, KoinComponent {
 
-    private val allFavorites : List<Favorite?>? = favoriteDao.getAllFavorites()
+    private var favoriteDao : FavoriteDao? = null
+    private var allFavorites : List<Favorite>? = null
 
-    override suspend fun getAllFavorites(): List<Favorite?>? {
+    init {
+        GlobalScope.launch {
+            val db: FavoriteRoomDatabase? = FavoriteRoomDatabase.getDatabase(context)
+            favoriteDao = db?.favoriteDao()
+            allFavorites = favoriteDao?.getAllFavorites()
+        }
+    }
+
+    override suspend fun getAllFavorites(): List<Favorite>? {
         return allFavorites
     }
 
     override suspend fun insert(favorite: Favorite) {
-        favoriteDao.insert(favorite)
+        favoriteDao?.let {
+            insert(favorite)
+        }
+    }
+
+    override suspend fun delete(favorite: Favorite) {
+        favoriteDao.let {
+            delete(favorite)
+        }
+    }
+
+    override suspend fun getFavoritesByUsername(username: String): List<Favorite>? {
+        return allFavorites?.let {
+            it.filter { favorite -> favorite.username.equals(username, true) }
+        } ?: run {
+            null
+        }
     }
 }

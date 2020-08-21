@@ -1,19 +1,21 @@
 package com.tribal.tribalphotos.ui.favorite
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.model.Favorite
+import com.tribal.tribalphotos.repository.FavoriteRoomDatabase
 import com.tribal.tribalphotos.repository.FavoritesRepository
 import com.tribal.tribalphotos.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class PhotoFavoritesViewModel (
-    private val favoriteRepository: FavoritesRepository
+    private val favoritesRepository: FavoritesRepository
 ): BaseViewModel() {
     val favoritesLiveData = MutableLiveData<List<Favorite?>>()
     private lateinit var favoritesArrayList: List<Favorite?>
-
 
     fun getFavorites() =
         viewModelScope.launch {
@@ -23,7 +25,7 @@ class PhotoFavoritesViewModel (
     private suspend fun  getFavoritesAsync() {
         val result = runCatching {
             showLoading()
-            favoriteRepository.getAllFavorites()
+            favoritesRepository.getAllFavorites()
         }
 
         with(result) {
@@ -36,7 +38,7 @@ class PhotoFavoritesViewModel (
                     favoritesArrayList = ArrayList()
                 }
                 onFailure {
-                    Log.e("TAGTAG", it.toString())
+                    Log.e(MainActivity.TAG, it.toString())
                 }
             }
         }
