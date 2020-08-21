@@ -1,17 +1,15 @@
 package com.tribal.tribalphotos.ui.di.modules
 
-import androidx.fragment.app.Fragment
-import com.tribal.tribalphotos.repository.TribalPhotosRepository
-import com.tribal.tribalphotos.repository.TribalPhotosRepositoryImpl
-import com.tribal.tribalphotos.ui.TribalPhotosViewModel
-import com.tribal.tribalphotos.ui.photo.PhotoGalleryFragment
+import com.tribal.tribalphotos.repository.PhotosRepository
+import com.tribal.tribalphotos.repository.PhotosRepositoryImpl
+import com.tribal.tribalphotos.ui.photo.PhotoGalleryViewModel
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 
 val viewModelModule = module {
-    viewModel { TribalPhotosViewModel(get()) }
+    viewModel { PhotoGalleryViewModel(get()) }
 }
 
 val repoModule = module {
-    single<TribalPhotosRepository> { TribalPhotosRepositoryImpl(get()) }
+    single<PhotosRepository> { PhotosRepositoryImpl(get()) }
 }

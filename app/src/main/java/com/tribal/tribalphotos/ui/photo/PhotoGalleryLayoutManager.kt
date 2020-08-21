@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.max
 import kotlin.math.min
 
-class BeelineLayoutManager : RecyclerView.LayoutManager() {
+class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
 
     enum class Gravity {
         LEFT, RIGHT
@@ -237,7 +237,7 @@ class BeelineLayoutManager : RecyclerView.LayoutManager() {
             addView(view)
 //            view.setBeelineLayoutParams(i)
             if (i == 0) {
-                configLookup = object : BeelineLayoutManager.ConfigLookup {
+                configLookup = object : PhotoGalleryLayoutManager.ConfigLookup {
                     override fun getSpanSize(position: Int): Int = 2
                     override fun getZIndex(position: Int): Float = 1f
                     override fun isSolid(position: Int): Boolean = true
@@ -245,12 +245,12 @@ class BeelineLayoutManager : RecyclerView.LayoutManager() {
                     override fun getGravity(position: Int): Gravity = Gravity.LEFT
                 }
             } else {
-                configLookup = object : BeelineLayoutManager.ConfigLookup {
+                configLookup = object : PhotoGalleryLayoutManager.ConfigLookup {
                     override fun getSpanSize(position: Int): Int = 1
                     override fun getZIndex(position: Int): Float = 1f
                     override fun isSolid(position: Int): Boolean = true
                     override fun getVerticalOverlay(position: Int): Float = 0.5f
-                    override fun getGravity(position: Int): BeelineLayoutManager.Gravity = if (i % 2 == 0) Gravity.RIGHT else Gravity.LEFT
+                    override fun getGravity(position: Int): PhotoGalleryLayoutManager.Gravity = if (i % 2 == 0) Gravity.RIGHT else Gravity.LEFT
                 }
             }
             view.setBeelineLayoutParams(i)

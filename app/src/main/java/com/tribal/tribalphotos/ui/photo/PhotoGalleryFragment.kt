@@ -1,6 +1,6 @@
 package com.tribal.tribalphotos.ui.photo
 
-import BeelineLayoutManager
+import PhotoGalleryLayoutManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.unsplash.Photo
-import com.tribal.tribalphotos.ui.TribalPhotosViewModel
 import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
@@ -27,7 +26,7 @@ import org.koin.core.KoinComponent
 
 class PhotoGalleryFragment : Fragment(), KoinComponent {
 
-    private val tribalPhotosViewModel: TribalPhotosViewModel by viewModel()
+    private val photoGalleryViewModel: PhotoGalleryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +40,7 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
 
         observeViewModel()
-        tribalPhotosViewModel.getRandomPhotos()
+        photoGalleryViewModel.getRandomPhotos()
 
         initViews()
 
@@ -49,13 +48,13 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
 
     private fun initViews() {
 
-        rvGallery.layoutManager = BeelineLayoutManager().apply {
-            configLookup = object : BeelineLayoutManager.ConfigLookup {
+        rvGallery.layoutManager = PhotoGalleryLayoutManager().apply {
+            configLookup = object : PhotoGalleryLayoutManager.ConfigLookup {
                 override fun getSpanSize(position: Int): Int = 2
                 override fun getZIndex(position: Int): Float = 1f
                 override fun isSolid(position: Int): Boolean = true
                 override fun getVerticalOverlay(position: Int): Float = 0f
-                override fun getGravity(position: Int): BeelineLayoutManager.Gravity = BeelineLayoutManager.Gravity.LEFT
+                override fun getGravity(position: Int): PhotoGalleryLayoutManager.Gravity = PhotoGalleryLayoutManager.Gravity.LEFT
             }
         }
         rvGallery.clipToOutline = true
@@ -63,7 +62,7 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
 
     }
 
-    private fun observeViewModel() = tribalPhotosViewModel.run {
+    private fun observeViewModel() = photoGalleryViewModel.run {
 
         photosLiveData.observe (viewLifecycleOwner, Observer {
             setAdapter(it)

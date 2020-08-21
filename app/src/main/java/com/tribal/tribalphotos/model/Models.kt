@@ -1,8 +1,20 @@
 package com.tribal.tribalphotos.model
 
-data class Favorite (
-    val username: String? = null,
-    val info: String? = null,
-    val profileImgLink: String? = null,
-    val profileLink: String? = null
-)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
+
+@Entity(tableName = "favorite")
+class Favorite {
+    @PrimaryKey(autoGenerate = true)
+    @NotNull
+    var id: Int = 0
+    var username: String? = null
+    var bio: String? = null
+    @ColumnInfo(name ="link_profile")
+    var linkProfile: String? = null
+    @ColumnInfo(name = "total_photos")
+    var totalPhotos: Int = 0
+
+}

@@ -6,7 +6,6 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.tribal.tribalphotos.MainActivity
-import com.tribal.tribalphotos.model.Favorite
 import com.tribal.tribalphotos.model.unsplash.Photo
 import com.tribal.tribalphotos.network.volley.VolleyClient
 import com.tribal.tribalphotos.utils.mapTo
@@ -15,7 +14,7 @@ import org.koin.core.KoinComponent
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class TribalPhotosRepositoryImpl(context: Context) : TribalPhotosRepository, KoinComponent {
+class PhotosRepositoryImpl(context: Context) : PhotosRepository, KoinComponent {
     private var queue = VolleyClient.getInstance(context)
     val url = "https://api.unsplash.com/photos/?client_id=oP_fIPn5u0SWwECyN5Ko7dvl5bFJ1gX_PXenVSsPg3Q&random?count=10"
 
@@ -47,9 +46,6 @@ class TribalPhotosRepositoryImpl(context: Context) : TribalPhotosRepository, Koi
 
         }
 
-    override suspend fun getFavorites(): List<Favorite?> {
-        TODO("Not yet implemented")
-    }
 
 }
 

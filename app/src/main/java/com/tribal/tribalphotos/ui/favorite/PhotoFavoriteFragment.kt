@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Favorite
-import com.tribal.tribalphotos.ui.TribalFavoritesViewModel
 import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
+import com.tribal.tribalphotos.ui.adapter.itemModel.FavoriteItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactoryImpl
 import com.tribal.tribalphotos.utils.makeGoneAlpha
@@ -20,12 +20,11 @@ import kotlinx.android.synthetic.main.no_items_layout.*
 import kotlinx.android.synthetic.main.recyclerview_item_row.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
-import java.util.Observer
 
 
 class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
-    private val tribalFavoriteViewModel: TribalFavoritesViewModel by viewModel()
+    private val tribalFavoriteViewModelPhoto: PhotoFavoritesViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +37,7 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
 
         observeViewModel()
-        tribalFavoriteViewModel.getUserInfo()
+        tribalFavoriteViewModelPhoto.getFavorites()
 
         initView()
 
@@ -61,12 +60,12 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
     }
 
-    private fun observeViewModel() = tribalFavoriteViewModel.run {
+    private fun observeViewModel() = tribalFavoriteViewModelPhoto.run {
 
     }
 
     private fun setAdapter (list: List<Favorite?>): Unit{
-        //PENDING actualizar el RecyclerView
+
         if (list.isEmpty()) {
             rvGallery.makeGoneAlpha(200) {
                 tvWhoops.text = getString(R.string.fragment_photo_gallery_no_items)
@@ -88,7 +87,7 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
     private fun getFavoritesForAdapter (list: List<Favorite?>): List<ItemModel> {
         val itemList = ArrayList<ItemModel>()
         list.forEach {
-//            itemList.add(Favorite)
+            itemList.add(FavoriteItemModel(it!!))
         }
         return itemList
     }

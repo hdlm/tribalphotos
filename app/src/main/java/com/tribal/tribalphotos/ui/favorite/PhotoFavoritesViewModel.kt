@@ -1,28 +1,29 @@
-package com.tribal.tribalphotos.ui
+package com.tribal.tribalphotos.ui.favorite
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.tribal.tribalphotos.model.Favorite
-import com.tribal.tribalphotos.repository.TribalPhotosRepository
+import com.tribal.tribalphotos.repository.FavoritesRepository
 import com.tribal.tribalphotos.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class TribalFavoritesViewModel (
-    private val tribalPhotosRepository: TribalPhotosRepository
+class PhotoFavoritesViewModel (
+    private val favoriteRepository: FavoritesRepository
 ): BaseViewModel() {
     val favoritesLiveData = MutableLiveData<List<Favorite?>>()
-    lateinit var favoritesArrayList: List<Favorite?>
+    private lateinit var favoritesArrayList: List<Favorite?>
 
-    fun getUserInfo() =
+
+    fun getFavorites() =
         viewModelScope.launch {
-            getUserInfoAsync()
+            getFavoritesAsync()
         }
 
-    private suspend fun  getUserInfoAsync() {
+    private suspend fun  getFavoritesAsync() {
         val result = runCatching {
             showLoading()
-            tribalPhotosRepository.getFavorites()
+            favoriteRepository.getAllFavorites()
         }
 
         with(result) {
