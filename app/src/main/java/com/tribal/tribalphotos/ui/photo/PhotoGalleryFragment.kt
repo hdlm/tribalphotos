@@ -10,18 +10,24 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
+import com.tribal.tribalphotos.model.Favorite
 import com.tribal.tribalphotos.model.unsplash.Photo
+import com.tribal.tribalphotos.repository.FavoritesRepository
 import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
 import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactoryImpl
 import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
+import com.tribal.tribalphotos.utils.mapTo
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
+import kotlinx.android.synthetic.main.item_photo_row.*
 import kotlinx.android.synthetic.main.no_items_layout.*
-import kotlinx.android.synthetic.main.recyclerview_item_row.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
+import org.koin.core.get
 
 
 class PhotoGalleryFragment : Fragment(), KoinComponent {
@@ -88,8 +94,16 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
                 makeGoneAlpha(50) {
                     adapter = DynamicAdapter(
                         typeFactory = PhotoGalleryTypesFactoryImpl(),
-                        items = getPhotosGalleryForAdapter(list)
-                    )
+                        items = getPhotosGalleryForAdapter(list),
+                        onClick = { itemModel ->
+                            val photo = (itemModel as PhotoGalleryItemModel).model
+                            var favorite =  photo.mapTo(Favorite::class.java)
+                            val favoriteRepository: FavoritesRepository = get()
+                            Log.d(MainActivity.TAG, "invoke insert for a new Favorite register")
+                            GlobalScope.launch {
+                                favoriteRepository.insert(favorite!!)
+                            }
+                } )
                     makeVisibleAlpha(100)
                 }
             }

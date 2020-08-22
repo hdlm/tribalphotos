@@ -6,7 +6,8 @@ data class Photo (
     val alt_description: String? = null,
     val urls: Urls? = null,
     val likes: Int = 0,
-    val user: Username? = null
+    val user: Username? = null,
+    val total_photo: Int = 0
 
 )
 
@@ -19,6 +20,8 @@ data class Urls (
 data class Username (
     val id: String? = null,
     val name: String? = null,
+    val bio: String? = null,
+    val portfolio_url: String? = null,
     val profile_image: ProfileImage? = null
 )
 

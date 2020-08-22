@@ -10,7 +10,7 @@ import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
-import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
+import kotlinx.android.synthetic.main.item_photo_row.view.*
 
 class PhotoGalleryHolder(private val view: View) : DynamicAdapterViewHolder<PhotoGalleryItemModel>(view) {
     override fun bind(item: PhotoGalleryItemModel, position: Int, onClick: (ItemModel) -> Unit) {
@@ -20,6 +20,7 @@ class PhotoGalleryHolder(private val view: View) : DynamicAdapterViewHolder<Phot
             tvUsername?.text = item.model.user?.name
             imgvFavorite.setOnClickListener {
                 //PENDING save the favorite photo
+                onClick(item)
                 Log.d(MainActivity.TAG, "new favorite photo: ${item.model.id}")
                 imgvFavorite.setImageResource(android.R.drawable.star_on)
             }

@@ -14,6 +14,8 @@ class Favorite {
     var bio: String? = null
     @ColumnInfo(name ="link_profile")
     var linkProfile: String? = null
+    @ColumnInfo(name = "profile_image")
+    var profileImage: String? = null
     @ColumnInfo(name = "total_photos")
     var totalPhotos: Int = 0
 

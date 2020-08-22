@@ -19,7 +19,7 @@ import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import kotlinx.android.synthetic.main.fragment_photo_favorite.*
 import kotlinx.android.synthetic.main.no_items_layout.*
-import kotlinx.android.synthetic.main.recyclerview_item_favorite_row.*
+import kotlinx.android.synthetic.main.item_favorite_row.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 

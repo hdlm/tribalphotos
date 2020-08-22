@@ -9,12 +9,12 @@ import com.tribal.tribalphotos.ui.adapter.holder.PhotoGalleryHolder
 class PhotoGalleryTypesFactoryImpl : PhotoGalleryTypesFactory {
 
     override fun typePhotoGallety(type: Photo) =
-        R.layout.recyclerview_item_row
+        R.layout.item_photo_row
 
 
     override fun holder(type: Int, view: View): DynamicAdapterViewHolder<*> {
         return when (type) {
-            R.layout.recyclerview_item_row -> PhotoGalleryHolder(view)
+            R.layout.item_photo_row -> PhotoGalleryHolder(view)
             else -> throw RuntimeException("Illegal view type")
         }
     }

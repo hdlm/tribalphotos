@@ -2,7 +2,6 @@ package com.tribal.tribalphotos.repository
 
 import android.content.Context
 import com.tribal.tribalphotos.model.Favorite
-import com.tribal.tribalphotos.ui.di.modules.viewModelModule
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
