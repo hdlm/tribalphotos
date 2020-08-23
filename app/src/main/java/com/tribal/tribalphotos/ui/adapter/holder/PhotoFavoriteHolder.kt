@@ -14,14 +14,9 @@ class PhotoFavoriteHolder(private val view: View) : DynamicAdapterViewHolder<Fav
     override fun bind(item: FavoriteItemModel, position: Int, onClick: (ItemModel) -> Unit) {
         val favorite = item.model
         with(view) {
-            tvUsername.text = favorite.username
-            tvPortfolio.text = favorite.linkProfile
-            tvBio.text = favorite.bio
-            tvTotalPhotos.text = favorite.totalPhotos.toString()
             btnRemoveFavorite.setOnClickListener {
                 //PENDING remove favorite
             }
-            imgvItem
             val imgvPicture = findViewById<ImageView>(R.id.imgvItem)
             imgvPicture.clipToOutline = true
 
@@ -30,7 +25,7 @@ class PhotoFavoriteHolder(private val view: View) : DynamicAdapterViewHolder<Fav
             val margin = 5
             val transformation: Transformation = RoundedCornersTransformation(radius, margin)
             Picasso.get().load(favorite.profileImage).transform(transformation).into(imgvPicture)
-            //PENDING cargar la imagen de la foto
+            //PENDING cargar la imagen del user profile al hacer clic sobre la foto
         }
 
     }
