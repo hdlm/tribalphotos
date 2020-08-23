@@ -3,6 +3,7 @@ package com.tribal.tribalphotos.network.volley
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.LruCache
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.ImageLoader
@@ -10,6 +11,7 @@ import com.android.volley.toolbox.Volley
 
 
 class VolleyClient constructor(context: Context) {
+
     companion object {
         @Volatile
         private var INSTANCE: VolleyClient? = null
@@ -20,6 +22,7 @@ class VolleyClient constructor(context: Context) {
                 }
             }
     }
+
     val imageLoader: ImageLoader by lazy {
         ImageLoader(requestQueue,
             object : ImageLoader.ImageCache {
@@ -32,12 +35,19 @@ class VolleyClient constructor(context: Context) {
                 }
             })
     }
+
     val requestQueue: RequestQueue by lazy {
         // applicationContext is key, it keeps you from leaking the
         // Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(context.applicationContext)
     }
-    fun <T> addToRequestQueue(req: Request<T>) {
+
+    fun <T> addToRequestQueue(req: Request<T>, socketTimeout: Int = DefaultRetryPolicy.DEFAULT_TIMEOUT_MS) {
+        req.setRetryPolicy(DefaultRetryPolicy(
+            socketTimeout,
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT )
+        )
         requestQueue.add(req)
     }
 }

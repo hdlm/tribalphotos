@@ -41,10 +41,9 @@ class PhotosRepositoryImpl(context: Context) : PhotosRepository, KoinComponent {
                     }
                 }
             )
-            queue.addToRequestQueue(jsonArrayRequest)
+            queue.addToRequestQueue(jsonArrayRequest, 5000)
 
         }
-
 
 }
 
