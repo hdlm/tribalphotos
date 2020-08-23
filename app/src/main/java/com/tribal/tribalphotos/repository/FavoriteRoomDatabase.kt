@@ -24,7 +24,7 @@ abstract class FavoriteRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     FavoriteRoomDatabase::class.java,
                     "tribalphotos_database"
-                    ).build()
+                    ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance
             }

@@ -14,7 +14,7 @@ import org.koin.core.KoinComponent
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class PhotosRepositoryImpl(context: Context) : PhotosRepository, KoinComponent {
+class PhotoRepositoryImpl(context: Context) : PhotoRepository, KoinComponent {
     private var queue = VolleyClient.getInstance(context)
 
     override suspend fun getPhotos(): List<Photo?>? =

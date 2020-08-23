@@ -23,8 +23,10 @@
     <string name="fragment_photo_favorite_title_total_photos">Total Photos:</string>
     <string name="fragment_photo_favorite_button_remove_favorite">Remove</string>
     <string name="fragment_photo_favorite_no_items">We couldn\'t find any favorite image</string>
+    <string name="fragment_photo_favorite_content_descrip">Search image</string>
 
     <string name="whoopsText">Whoops!</string>
     <string name="no_item_favorites">You don\'t have any images in\n your favorites. Add them to this\n list by using the star icon on any\n image you like"</string>
+    <string name="error_msg_create_database">We couldn\'t open the Database</string>
 
 </resources>

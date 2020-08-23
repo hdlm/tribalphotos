@@ -11,7 +11,6 @@ class PhotoGalleryTypesFactoryImpl : PhotoGalleryTypesFactory {
     override fun typePhotoGallety(type: Photo) =
         R.layout.item_photo_row
 
-
     override fun holder(type: Int, view: View): DynamicAdapterViewHolder<*> {
         return when (type) {
             R.layout.item_photo_row -> PhotoGalleryHolder(view)

@@ -1,38 +1,21 @@
 package com.tribal.tribalphotos.repository
 
-import android.content.Context
+import android.util.Log
+import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.model.Favorite
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 
-class FavoriteRepositoryImpl(context: Context) : FavoritesRepository, KoinComponent {
+class FavoriteRepositoryImpl(private val favoriteDao: FavoriteDao) : FavoriteRepository, KoinComponent {
 
-    private var favoriteDao : FavoriteDao? = null
-    private var allFavorites : List<Favorite>? = null
-
-    init {
-        GlobalScope.launch {
-            val db: FavoriteRoomDatabase? = FavoriteRoomDatabase.getDatabase(context)
-            favoriteDao = db?.favoriteDao()
-            allFavorites = favoriteDao?.getAllFavorites()
-        }
-    }
-
-    override suspend fun getAllFavorites(): List<Favorite>? {
-        return allFavorites
-    }
+    private var allFavorites : List<Favorite>? = favoriteDao.getAllFavorites()
 
     override suspend fun insert(favorite: Favorite) {
-        favoriteDao?.let {
-            insert(favorite)
-        }
+        Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - inserting Favorite: ${favorite.username}")
+        favoriteDao.insert(favorite)
     }
 
     override suspend fun delete(favorite: Favorite) {
-        favoriteDao.let {
-            delete(favorite)
-        }
+        favoriteDao. delete(favorite)
     }
 
     override suspend fun getFavoritesByUsername(username: String): List<Favorite>? {
@@ -42,4 +25,10 @@ class FavoriteRepositoryImpl(context: Context) : FavoritesRepository, KoinCompon
             null
         }
     }
+
+    override suspend fun getAllFavorites(): List<Favorite>? {
+        allFavorites = favoriteDao?.getAllFavorites()
+        return allFavorites
+    }
 }
+

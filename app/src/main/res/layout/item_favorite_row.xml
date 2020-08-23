@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imgItem"
+        android:id="@+id/imgvItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -27,7 +27,7 @@
         android:fontFamily="@font/avenirheavy"
         android:text="@string/fragment_photo_favorite_title_group"
         android:textSize="@dimen/font_size_textview_header"
-        app:layout_constraintTop_toBottomOf="@+id/imgItem"
+        app:layout_constraintTop_toBottomOf="@+id/imgvItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5" />
@@ -130,8 +130,6 @@
         app:layout_constraintStart_toStartOf="@+id/tvTitleUsername"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleTotalPhotos" />
 
-    <include layout="@layout/no_items_layout"
-        android:visibility="gone"
-        android:id="@+id/lyNoElements" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="24sp"
-        android:textColor="#5d6cfd"
+        android:textColor="@color/colorPrimary"
         android:text="@string/whoopsText"
         android:fontFamily="@font/avenirblack"
         android:id="@+id/tvWhoops"

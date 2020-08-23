@@ -1,7 +1,8 @@
-package com.tribal.tribalphotos.ui.photo
+package com.tribal.tribalphotos.ui.favorite
 
 import android.content.Context
 import android.content.res.Resources
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
@@ -9,22 +10,17 @@ import androidx.lifecycle.viewModelScope
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Favorite
-import com.tribal.tribalphotos.model.unsplash.Photo
 import com.tribal.tribalphotos.repository.FavoriteRepository
 import com.tribal.tribalphotos.repository.FavoriteRepositoryImpl
 import com.tribal.tribalphotos.repository.FavoriteRoomDatabase
-import com.tribal.tribalphotos.repository.PhotoRepository
 import com.tribal.tribalphotos.ui.base.BaseViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PhotoGalleryViewModel (
-    private val photoRepository: PhotoRepository
-): BaseViewModel() {
+class PhotoFavoriteViewModel ( ): BaseViewModel() {
 
     private lateinit var favoriteRepository: FavoriteRepository
-    val photosLiveData = MutableLiveData<List<Photo?>>()
-    private lateinit var photosArrayList: List<Photo?>
+    val favoritesLiveData = MutableLiveData<List<Favorite?>>()
+    private var favoritesArrayList: List<Favorite?> = ArrayList()
 
     fun prepareLocalDatabase(context: Context) =
         viewModelScope.launch {
@@ -42,43 +38,39 @@ class PhotoGalleryViewModel (
         with(result) {
             dismissLoading()
             onSuccess {
-                Log.d(MainActivity.TAG, "Database prepare")
+                it?.let {
+                    favoritesArrayList = it
+                    favoritesLiveData.postValue(favoritesArrayList)
+                } ?: run {
+                    favoritesArrayList = ArrayList()
+                }
             }
             onFailure {
                 Log.d(MainActivity.TAG, it.toString())
-                Toast.makeText(context, Resources.getSystem().getString(R.string.error_msg_create_database),
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, Resources.getSystem().getString(R.string.error_msg_create_database),Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    fun addFavorite(favorite: Favorite) =
-        viewModelScope.launch(Dispatchers.IO) {
-            addFavoriteAsync(favorite)
-        }
-
-    private suspend fun addFavoriteAsync(favorite: Favorite): Unit = favoriteRepository.insert(favorite)
-
-
-    fun getRandomPhotos() =
+    fun getFavorites() =
         viewModelScope.launch {
-            getRandomPhotosAsync()
+            getFavoritesAsync()
         }
 
-    private suspend fun getRandomPhotosAsync() {
+    private suspend fun  getFavoritesAsync() {
         val result = runCatching {
             showLoading()
-            photoRepository.getPhotos()
+            favoriteRepository.getAllFavorites()
         }
-
         with(result) {
             dismissLoading()
             onSuccess {
                 it?.let {
-                    photosArrayList = it
-                    photosLiveData.postValue(photosArrayList)
+                    favoritesArrayList = it
+                    favoritesLiveData.postValue(favoritesArrayList)
                 } ?: run {
-                    photosArrayList = ArrayList()
+                    favoritesArrayList = ArrayList()
+                    favoritesLiveData.postValue(favoritesArrayList)
                 }
             }
             onFailure {

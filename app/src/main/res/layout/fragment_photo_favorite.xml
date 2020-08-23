@@ -21,12 +21,12 @@
             android:textSize="@dimen/font_size_textview_header" />
 
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
             android:paddingStart="8dp"
-            android:src="@android:drawable/ic_menu_search" />
+            android:src="@android:drawable/ic_menu_search"
+            android:contentDescription="@string/fragment_photo_favorite_content_descrip" />
 
         <EditText
             android:id="@+id/editTextSearch"
@@ -37,12 +37,14 @@
             android:fontFamily="@font/avenirbookoblique"
             android:inputType="textPersonName"
             android:textColor="@color/colorTextSearch"
-            android:hint="@string/fragment_photo_favorite_txt_search_hint" />
-
-
-
+            android:hint="@string/fragment_photo_favorite_txt_search_hint"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
+
+    <include layout="@layout/no_items_layout"
+        android:visibility="gone"
+        android:id="@+id/lYNoElements" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorite"

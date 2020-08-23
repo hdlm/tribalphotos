@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
@@ -22,6 +23,8 @@ import com.tribal.tribalphotos.utils.mapTo
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
 import kotlinx.android.synthetic.main.item_photo_row.*
 import kotlinx.android.synthetic.main.no_items_layout.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
@@ -40,6 +43,8 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
+
+        photoGalleryViewModel.prepareLocalDatabase(requireContext())
 
         observeViewModel()
         photoGalleryViewModel.getRandomPhotos()

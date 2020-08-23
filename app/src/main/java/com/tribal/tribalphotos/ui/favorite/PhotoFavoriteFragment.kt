@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tribal.tribalphotos.MainActivity
@@ -19,14 +20,13 @@ import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import kotlinx.android.synthetic.main.fragment_photo_favorite.*
 import kotlinx.android.synthetic.main.no_items_layout.*
-import kotlinx.android.synthetic.main.item_favorite_row.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 
 class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
-    private val tribalFavoriteViewModelPhoto: PhotoFavoritesViewModel by viewModel()
+    private val favoriteViewModelPhoto: PhotoFavoriteViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +38,9 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
 
+        favoriteViewModelPhoto.prepareLocalDatabase(requireContext())
+
         observeViewModel()
-        tribalFavoriteViewModelPhoto.getFavorites()
 
         initView()
 
@@ -62,7 +63,7 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
     }
 
-    private fun observeViewModel() = tribalFavoriteViewModelPhoto.run {
+    private fun observeViewModel() = favoriteViewModelPhoto.run {
         favoritesLiveData.observe (viewLifecycleOwner, {
             setAdapter(it)
         })
@@ -81,8 +82,8 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
         if (list.isEmpty()) {
             rvFavorite.makeGoneAlpha(200) {
-                tvWhoops.text = getString(R.string.fragment_photo_favorite_no_items)
-                lyNoElements.makeVisibleAlpha(200) { }
+                tv_whoops.text = getString(R.string.fragment_photo_favorite_no_items)
+                lYNoElements.makeVisibleAlpha(200) { }
             }
         } else {
             rvFavorite.apply {
