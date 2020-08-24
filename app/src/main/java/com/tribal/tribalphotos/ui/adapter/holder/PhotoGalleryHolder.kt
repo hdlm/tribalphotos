@@ -13,13 +13,17 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.item_photo_row.view.*
 
 class PhotoGalleryHolder(private val view: View) : DynamicAdapterViewHolder<PhotoGalleryItemModel>(view) {
-    override fun bind(item: PhotoGalleryItemModel, position: Int, onClick: (ItemModel) -> Unit) {
+    override fun bind(item: PhotoGalleryItemModel, position: Int, onClick: (ItemModel) -> Unit, onClickFavorite: (ItemModel) -> Unit) {
         with(view) {
             tvLikes?.text = item.model.likes.toString()
             tvUsername?.text = item.model.user?.name
-            imgvFavorite.setOnClickListener {
+            imgvItem.setOnClickListener {
                 onClick(item)
-                Log.d(MainActivity.TAG, "new favorite photo: ${item.model.id}")
+                Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - click to show profile fragment: ${item.model.id}")
+            }
+            imgvFavorite.setOnClickListener {
+                onClickFavorite(item)
+                Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - click to new favorite photo: ${item.model.id}")
                 imgvFavorite.setImageResource(android.R.drawable.star_on)
             }
 
@@ -31,6 +35,7 @@ class PhotoGalleryHolder(private val view: View) : DynamicAdapterViewHolder<Phot
             val margin = 5
             val transformation: Transformation = RoundedCornersTransformation(radius, margin)
             Picasso.get().load(item.model.urls?.regular).transform(transformation).into(imgvPicture)
+
 
         }
 

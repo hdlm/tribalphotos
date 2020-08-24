@@ -30,7 +30,7 @@ import org.koin.core.KoinComponent
 
 class PhotoGalleryFragment : Fragment(), KoinComponent {
 
-    private val photoGalleryViewModel: PhotoGalleryViewModel by viewModel()
+    private val photoGalleryViewModel: PhotoGalleryViewModel by sharedViewModel()
     private val favoriteViewModelPhoto: PhotoFavoriteViewModel by sharedViewModel()
 
     override fun onCreateView(
@@ -98,10 +98,15 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
                         typeFactory = PhotoGalleryTypesFactoryImpl(),
                         items = getPhotosGalleryForAdapter(list),
                         onClick = { itemModel ->
+                            photoGalleryViewModel.userLiveDataProfileSelected.postValue(itemModel)
+                            MainActivity.getInstance().gotoUserProfileFragment()
+                            Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - onClick event fire")
+                        },
+                        onClickFavorite = { itemModel ->
                             val photo = (itemModel as PhotoGalleryItemModel).model
                             var favorite =  photo.mapTo(Favorite::class.java)
-                            Log.d(MainActivity.TAG, "onClick event fire")
                             favoriteViewModelPhoto.addFavorite(favorite!!)
+                            Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - onClick event fire")
                 } )
                     makeVisibleAlpha(100)
                 }

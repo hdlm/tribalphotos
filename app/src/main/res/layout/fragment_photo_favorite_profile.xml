@@ -105,19 +105,16 @@
         app:layout_constraintStart_toEndOf="@+id/tvTitleTotalPhotos"
         app:layout_constraintTop_toTopOf="@+id/tvTitleTotalPhotos" />
 
-    <Button
-        android:id="@+id/btnRemoveFavorite"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/progressBarUserProfile"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_photo_favorite_button"
-        android:fontFamily="@font/avenirmedium"
-        android:gravity="center"
-        android:text="@string/fragment_photo_favorite_button_remove_favorite"
-        android:textColor="#FFFFFF"
-        android:textSize="@dimen/font_size_button"
-        app:layout_constraintStart_toStartOf="@+id/tvTitleUsername"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleTotalPhotos" />
-
+        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

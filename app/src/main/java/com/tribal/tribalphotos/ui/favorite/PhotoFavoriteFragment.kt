@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tribal.tribalphotos.MainActivity
@@ -21,7 +20,6 @@ import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import kotlinx.android.synthetic.main.fragment_photo_favorite.*
 import kotlinx.android.synthetic.main.no_items_layout.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 
@@ -94,7 +92,7 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
                     adapter = DynamicAdapter(
                         typeFactory = FavoriteTypesFactoryImpl(),
                         items = getFavoritesForAdapter(list),
-                        onClick = { itemModel ->
+                        onClickFavorite = { itemModel ->
                             val favorite = (itemModel as FavoriteItemModel).model
                             Log.d(MainActivity.TAG, "onClick event fire")
                             favoriteViewModelPhoto.delete(favorite!!)

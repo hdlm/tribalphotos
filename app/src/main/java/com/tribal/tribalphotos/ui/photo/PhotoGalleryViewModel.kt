@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.model.unsplash.Photo
 import com.tribal.tribalphotos.repository.PhotoRepository
+import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -15,6 +16,7 @@ class PhotoGalleryViewModel (
 
     val photosLiveData = MutableLiveData<List<Photo?>>()
     private lateinit var photosArrayList: List<Photo?>
+    var userLiveDataProfileSelected = MutableLiveData<ItemModel?>()
 
     fun getRandomPhotos() =
         viewModelScope.launch {

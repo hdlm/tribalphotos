@@ -13,12 +13,12 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
 import kotlinx.android.synthetic.main.item_favorite_row.view.*
 
 class PhotoFavoriteHolder(private val view: View) : DynamicAdapterViewHolder<FavoriteItemModel>(view) {
-    override fun bind(item: FavoriteItemModel, position: Int, onClick: (ItemModel) -> Unit) {
+    override fun bind(item: FavoriteItemModel, position: Int, onClick: (ItemModel) -> Unit, onClickFavorite: (ItemModel) -> Unit) {
         val favorite = item.model
         with(view) {
             btnRemoveFavorite.setOnClickListener {
-                onClick(item)
-                Log.d(MainActivity.TAG, "delete favorite photo: ${item.model.id}")
+                Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - click to delete favorite photo: ${item.model.id}")
+                onClickFavorite(item)
             }
             val imgvPicture = findViewById<ImageView>(R.id.imgvItem)
             imgvPicture.clipToOutline = true

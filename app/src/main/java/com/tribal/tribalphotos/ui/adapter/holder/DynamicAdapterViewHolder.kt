@@ -5,5 +5,5 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 
 abstract class DynamicAdapterViewHolder<in T>(view: View) : RecyclerView.ViewHolder(view) {
-    abstract fun bind(item: T, position: Int, onClick: (ItemModel) -> Unit)
+    abstract fun bind(item: T, position: Int, onClick: (ItemModel) -> Unit, onClickFavorite: (ItemModel) -> Unit)
 }

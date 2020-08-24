@@ -12,7 +12,8 @@ import com.tribal.tribalphotos.ui.adapter.typeFactory.BaseTypesFactory
 class DynamicAdapter(
     private val typeFactory: BaseTypesFactory,
     var items: List<ItemModel>,
-    private val onClick: (ItemModel) -> Unit = { }
+    private val onClick: (ItemModel) -> Unit = { },
+    private val onClickFavorite: (ItemModel) -> Unit = { }
 ) : RecyclerView.Adapter<DynamicAdapterViewHolder<ItemModel>>() {
 
     override fun getItemCount() = items.count()
@@ -30,6 +31,6 @@ class DynamicAdapter(
     }
 
     override fun onBindViewHolder(holder: DynamicAdapterViewHolder<ItemModel>, position: Int) {
-        holder.bind(items[position], position, onClick)
+        holder.bind(items[position], position, onClick, onClickFavorite)
     }
 }
