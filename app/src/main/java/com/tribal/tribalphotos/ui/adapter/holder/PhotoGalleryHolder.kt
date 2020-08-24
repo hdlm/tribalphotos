@@ -15,11 +15,9 @@ import kotlinx.android.synthetic.main.item_photo_row.view.*
 class PhotoGalleryHolder(private val view: View) : DynamicAdapterViewHolder<PhotoGalleryItemModel>(view) {
     override fun bind(item: PhotoGalleryItemModel, position: Int, onClick: (ItemModel) -> Unit) {
         with(view) {
-
             tvLikes?.text = item.model.likes.toString()
             tvUsername?.text = item.model.user?.name
             imgvFavorite.setOnClickListener {
-                //PENDING save the favorite photo
                 onClick(item)
                 Log.d(MainActivity.TAG, "new favorite photo: ${item.model.id}")
                 imgvFavorite.setImageResource(android.R.drawable.star_on)

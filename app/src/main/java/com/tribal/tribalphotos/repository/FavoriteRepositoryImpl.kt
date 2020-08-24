@@ -15,6 +15,7 @@ class FavoriteRepositoryImpl(private val favoriteDao: FavoriteDao) : FavoriteRep
     }
 
     override suspend fun delete(favorite: Favorite) {
+        Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - deleting Favorite: ${favorite.username}")
         favoriteDao. delete(favorite)
     }
 

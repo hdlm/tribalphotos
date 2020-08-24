@@ -35,7 +35,7 @@ class PhotoRepositoryImpl(context: Context) : PhotoRepository, KoinComponent {
                     }
                 },
                 Response.ErrorListener { error ->
-                    Log.d("TAGTAG", "WebService -> Response is: ${error.message}")
+                    Log.e(MainActivity.TAG, "${this.javaClass.simpleName} - response is: ${error.message}")
                     if(cont.isActive) {
                         cont.resumeWithException(error)
                     }

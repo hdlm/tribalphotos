@@ -20,13 +20,14 @@ import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import kotlinx.android.synthetic.main.fragment_photo_favorite.*
 import kotlinx.android.synthetic.main.no_items_layout.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 
 class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
-    private val favoriteViewModelPhoto: PhotoFavoriteViewModel by viewModel()
+    private val favoriteViewModelPhoto: PhotoFavoriteViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +39,7 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
 
+        progressBarPhotoFavorite.visibility = View.VISIBLE
         favoriteViewModelPhoto.prepareLocalDatabase(requireContext())
 
         observeViewModel()
@@ -70,13 +72,14 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
         loadingState.observe(viewLifecycleOwner, Observer {
             if (it) {
-                // skeleton.show()
+                progressBarPhotoFavorite.visibility = View.VISIBLE
             } else {
-                //skeleton.hide()
+                progressBarPhotoFavorite.visibility = View.GONE
             }
         })
 
     }
+
 
     private fun setAdapter (list: List<Favorite?>): Unit{
 
@@ -90,7 +93,12 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
                 makeGoneAlpha(50) {
                     adapter = DynamicAdapter(
                         typeFactory = FavoriteTypesFactoryImpl(),
-                        items = getFavoritesForAdapter(list)
+                        items = getFavoritesForAdapter(list),
+                        onClick = { itemModel ->
+                            val favorite = (itemModel as FavoriteItemModel).model
+                            Log.d(MainActivity.TAG, "onClick event fire")
+                            favoriteViewModelPhoto.delete(favorite!!)
+                        }
                     )
                     makeVisibleAlpha(100)
                 }

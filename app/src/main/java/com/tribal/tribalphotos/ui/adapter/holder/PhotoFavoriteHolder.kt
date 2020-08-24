@@ -1,9 +1,11 @@
 package com.tribal.tribalphotos.ui.adapter.holder
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
+import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.ui.adapter.itemModel.FavoriteItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
@@ -15,7 +17,8 @@ class PhotoFavoriteHolder(private val view: View) : DynamicAdapterViewHolder<Fav
         val favorite = item.model
         with(view) {
             btnRemoveFavorite.setOnClickListener {
-                //PENDING remove favorite
+                onClick(item)
+                Log.d(MainActivity.TAG, "delete favorite photo: ${item.model.id}")
             }
             val imgvPicture = findViewById<ImageView>(R.id.imgvItem)
             imgvPicture.clipToOutline = true

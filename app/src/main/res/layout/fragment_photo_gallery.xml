@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.photo.PhotoGalleryFragment">
 
+    <include layout="@layout/no_items_layout"
+        android:visibility="gone"
+        android:id="@+id/lYNoElements" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,12 +17,21 @@
         android:text="@string/fragment_photo_gallery_title_group"
         android:textSize="@dimen/font_size_textview_header" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="30dp"
         android:id="@+id/rvGallery"
         android:scrollbars="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarPhotoGallery"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 </FrameLayout>
 

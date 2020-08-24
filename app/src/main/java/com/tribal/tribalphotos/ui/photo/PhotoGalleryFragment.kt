@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
@@ -17,14 +16,14 @@ import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
 import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactoryImpl
+import com.tribal.tribalphotos.ui.favorite.PhotoFavoriteViewModel
 import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import com.tribal.tribalphotos.utils.mapTo
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
 import kotlinx.android.synthetic.main.item_photo_row.*
 import kotlinx.android.synthetic.main.no_items_layout.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
@@ -32,6 +31,7 @@ import org.koin.core.KoinComponent
 class PhotoGalleryFragment : Fragment(), KoinComponent {
 
     private val photoGalleryViewModel: PhotoGalleryViewModel by viewModel()
+    private val favoriteViewModelPhoto: PhotoFavoriteViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,8 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
 
         Log.d(MainActivity.TAG, "view created: ${this.javaClass.simpleName}")
 
-        photoGalleryViewModel.prepareLocalDatabase(requireContext())
+        progressBarPhotoGallery.visibility = View.VISIBLE
+        favoriteViewModelPhoto.prepareLocalDatabase(requireContext())
 
         observeViewModel()
         photoGalleryViewModel.getRandomPhotos()
@@ -77,9 +78,9 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
 
         loadingState.observe(viewLifecycleOwner, Observer {
             if (it) {
-//                skeleton.show()
+                progressBarPhotoGallery.visibility = View.VISIBLE
             } else {
-//                skeleton.hide()
+                progressBarPhotoGallery.visibility = View.GONE
             }
         })
     }
@@ -87,8 +88,8 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
     private fun setAdapter(list: List<Photo?>): Unit {
         if (list.isEmpty()) {
             rvGallery.makeGoneAlpha(200) {
-                tvWhoops.text = getString(R.string.fragment_photo_gallery_no_items)
-                lyNoElements.makeVisibleAlpha(200) { }
+                tv_whoops.text = getString(R.string.fragment_photo_gallery_no_items)
+                lYNoElements.makeVisibleAlpha(200) { }
             }
         } else {
             rvGallery.apply {
@@ -100,7 +101,7 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
                             val photo = (itemModel as PhotoGalleryItemModel).model
                             var favorite =  photo.mapTo(Favorite::class.java)
                             Log.d(MainActivity.TAG, "onClick event fire")
-                            photoGalleryViewModel.addFavorite(favorite!!)
+                            favoriteViewModelPhoto.addFavorite(favorite!!)
                 } )
                     makeVisibleAlpha(100)
                 }
