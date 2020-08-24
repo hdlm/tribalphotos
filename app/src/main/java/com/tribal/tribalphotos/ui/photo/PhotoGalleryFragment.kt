@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
 import com.tribal.tribalphotos.model.Favorite
@@ -21,10 +22,8 @@ import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
 import com.tribal.tribalphotos.utils.mapTo
 import kotlinx.android.synthetic.main.fragment_photo_gallery.*
-import kotlinx.android.synthetic.main.item_photo_row.*
 import kotlinx.android.synthetic.main.no_items_layout.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 
@@ -98,9 +97,8 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
                         typeFactory = PhotoGalleryTypesFactoryImpl(),
                         items = getPhotosGalleryForAdapter(list),
                         onClick = { itemModel ->
-                            photoGalleryViewModel.userLiveDataProfileSelected.postValue(itemModel)
-                            MainActivity.getInstance().gotoUserProfileFragment()
                             Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - onClick event fire")
+                            requireView().findNavController().navigate(R.id.action_gallery_to_userprofile)
                         },
                         onClickFavorite = { itemModel ->
                             val photo = (itemModel as PhotoGalleryItemModel).model

@@ -42,7 +42,11 @@ class PhotoFavoriteProfileFragment : Fragment(), KoinComponent {
 }
 
     private fun initViews() {
-        updateUserProfile(photoGalleryViewModel.userLiveDataProfileSelected as PhotoGalleryItemModel)
+        photoGalleryViewModel.userLiveDataProfileSelected?.let {
+            try {
+                updateUserProfile(photoGalleryViewModel.userLiveDataProfileSelected as PhotoGalleryItemModel)
+            } catch (ignore: java.lang.ClassCastException) { }
+        }
     }
 
     private fun observeViewModel(): Unit = photoGalleryViewModel.run {

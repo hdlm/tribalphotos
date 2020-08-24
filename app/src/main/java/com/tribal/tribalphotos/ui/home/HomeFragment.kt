@@ -1,14 +1,19 @@
 package com.tribal.tribalphotos.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
@@ -27,5 +32,14 @@ class HomeFragment : Fragment() {
             textView.text = it
         })
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Log.d(MainActivity.TAG, "go to Gallery")
+
+        buttonNavigate.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action__home_to_gallery, null))
+
     }
 }

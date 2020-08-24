@@ -4,6 +4,7 @@ apply plugin: "koin"
 buildscript {
     ext.kotlin_version = "1.4.0"
     ext.koin_version = "2.1.6"
+    ext.nav_version = "2.3.0"
     repositories {
         google()
         jcenter()
@@ -14,6 +15,7 @@ buildscript {
         classpath "org.koin:koin-gradle-plugin:$koin_version"
         classpath 'com.google.gms:google-services:4.3.3'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.2.0'
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
 
