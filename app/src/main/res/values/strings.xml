@@ -22,6 +22,7 @@
     <string name="fragment_photo_favorite_button_remove_favorite">Remove</string>
     <string name="fragment_photo_favorite_no_items">We couldn\'t find any favorite image</string>
     <string name="fragment_photo_favorite_content_descrip">Search image</string>
+    <string name="fragment_photo_favorite_search_hint">Search by username or name</string>
 
     <string name="whoopsText">Whoops!</string>
     <string name="no_item_favorites">You don\'t have any images in\n your favorites. Add them to this\n list by using the star icon on any\n image you like"</string>

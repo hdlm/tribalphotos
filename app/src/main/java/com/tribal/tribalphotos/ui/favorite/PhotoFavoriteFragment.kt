@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +17,10 @@ import com.tribal.tribalphotos.model.Favorite
 import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
 import com.tribal.tribalphotos.ui.adapter.itemModel.FavoriteItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
-import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
 import com.tribal.tribalphotos.ui.adapter.typeFactory.FavoriteTypesFactoryImpl
 import com.tribal.tribalphotos.ui.photo.PhotoGalleryViewModel
 import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
-import com.tribal.tribalphotos.utils.mapTo
 import kotlinx.android.synthetic.main.fragment_photo_favorite.*
 import kotlinx.android.synthetic.main.no_items_layout.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -52,15 +52,41 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
     private fun initView(): Unit {
 
-        rvFavorite.layoutManager = LinearLayoutManager(context)
-        rvFavorite.setHasFixedSize(true)
+        rvFavorite.visibility = View.GONE
+
+
+        val data = listOf("anastacia", "annabel", "andrianina", "adriana")
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,data)
+        listViewFilter.adapter = adapter
+
+        searchFilter.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+        })
+
+//        rvFavorite.layoutManager = LinearLayoutManager(context)
+//        rvFavorite.setHasFixedSize(true)
 
     }
 
     private fun observeViewModel() = favoriteViewModelPhoto.run {
-        favoritesLiveData.observe (viewLifecycleOwner, {
-            setAdapter(it)
-        })
+//        favoritesLiveData.observe (viewLifecycleOwner, {
+//            setAdapter(it)
+//        })
+//        , favoriteViewModelPhoto.filterData.value
+//        favoriteViewModelPhoto.adapterLiveData.observe (viewLifecycleOwner, {
+//            val data = arrayOf("anabel", "annie", "anastacia","jonny","henry")
+//            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,data)
+//            listViewFilter.adapter = adapter
+//            favoriteViewModelPhoto.adapterLiveData.postValue(adapter)
+//        })
+
 
         loadingState.observe(viewLifecycleOwner, Observer {
             if (it) {

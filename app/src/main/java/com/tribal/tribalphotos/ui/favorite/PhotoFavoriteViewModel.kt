@@ -3,6 +3,7 @@ package com.tribal.tribalphotos.ui.favorite
 import android.content.Context
 import android.content.res.Resources
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,9 +20,10 @@ import kotlinx.coroutines.withContext
 
 class PhotoFavoriteViewModel ( ): BaseViewModel() {
 
-    private lateinit var favoriteRepository: FavoriteRepository
     val favoritesLiveData = MutableLiveData<List<Favorite?>>()
     private var favoritesArrayList: List<Favorite?> = ArrayList()
+    private lateinit var favoriteRepository: FavoriteRepository
+    val adapterLiveData = MutableLiveData<ArrayAdapter<String?>>()
 
     fun prepareLocalDatabase(context: Context) =
         viewModelScope.launch {

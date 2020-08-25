@@ -20,6 +20,7 @@
             android:text="@string/fragment_photo_favorite_title_group"
             android:textSize="@dimen/font_size_textview_header" />
 
+        <!--
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -39,6 +40,8 @@
             android:textColor="@color/colorTextSearch"
             android:hint="@string/fragment_photo_favorite_txt_search_hint"
             android:importantForAutofill="no" />
+            -->
+
 
     </LinearLayout>
 
@@ -53,6 +56,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="@string/fragment_photo_favorite_search_hint"
+        app:iconifiedByDefault="false">
+        <requestFocus />
+    </androidx.appcompat.widget.SearchView>
+
+    <ListView
+        android:id="@+id/listViewFilter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorite"
