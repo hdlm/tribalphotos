@@ -7,28 +7,27 @@
     android:layout_height="wrap_content"
     tools:context=".ui.favorite.PhotoFavoriteFragment" >
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgvUserProfile"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:background="@drawable/round_outline"
-        android:outlineProvider="background"
-        android:padding="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="2dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.85"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <TextView
         android:id="@+id/tvTitleUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/avenirmedium"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/avenirheavy"
         android:text="@string/fragment_photo_favorite_title_username"
         android:textSize="@dimen/font_size_textview"
-        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgvUserProfile" />
 
@@ -44,14 +43,36 @@
         app:layout_constraintTop_toTopOf="@+id/tvTitleUsername" />
 
     <TextView
-        android:id="@+id/tvTitlePortfolio"
+        android:id="@+id/tvTitleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/avenirmedium"
-        android:text="@string/fragment_photo_favorite_title_portfolio"
+        android:fontFamily="@font/avenirheavy"
+        android:text="@string/fragment_photo_favorite_title_name"
         android:textSize="@dimen/font_size_textview"
         app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleUsername" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="portfolio"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTitleName"
+        app:layout_constraintTop_toTopOf="@+id/tvTitleName" />
+
+    <TextView
+        android:id="@+id/tvTitlePortfolio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirheavy"
+        android:text="@string/fragment_photo_favorite_title_portfolio"
+        android:textSize="@dimen/font_size_textview"
+        app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleName" />
 
     <TextView
         android:id="@+id/tvPortfolio"
@@ -61,39 +82,42 @@
         android:text="portfolio"
         android:textSize="@dimen/font_size_textview"
         android:layout_marginStart="4dp"
+        android:layout_marginEnd="18dp"
         app:layout_constraintStart_toEndOf="@+id/tvTitlePortfolio"
         app:layout_constraintTop_toTopOf="@+id/tvTitlePortfolio" />
 
-    <TextView
-        android:id="@+id/tvTitleBio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/avenirmedium"
-        android:text="@string/fragment_photo_favorite_title_bio"
-        android:textSize="@dimen/font_size_textview"
-        app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitlePortfolio" />
 
     <TextView
-        android:id="@+id/tvBio"
+        android:id="@+id/tvTitleTotalLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirheavy"
+        android:text="@string/fragment_photo_favorite_title_likes_photos"
+        android:textSize="@dimen/font_size_textview"
+        app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvPortfolio" />
+
+    <TextView
+        android:id="@+id/tvTotalLikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/avenirmedium"
-        android:text="bio"
+        android:text="0"
         android:textSize="@dimen/font_size_textview"
         android:layout_marginStart="4dp"
-        app:layout_constraintStart_toEndOf="@+id/tvTitleBio"
-        app:layout_constraintTop_toTopOf="@+id/tvTitleBio" />
+        app:layout_constraintStart_toEndOf="@+id/tvTitleTotalLikes"
+        app:layout_constraintTop_toTopOf="@+id/tvTitleTotalLikes" />
+
 
     <TextView
         android:id="@+id/tvTitleTotalPhotos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/avenirmedium"
+        android:fontFamily="@font/avenirheavy"
         android:text="@string/fragment_photo_favorite_title_total_photos"
         android:textSize="@dimen/font_size_textview"
         app:layout_constraintStart_toStartOf="@id/tvTitleUsername"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleBio" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleTotalLikes" />
 
     <TextView
         android:id="@+id/tvTotalPhotos"
@@ -105,6 +129,30 @@
         android:layout_marginStart="4dp"
         app:layout_constraintStart_toEndOf="@+id/tvTitleTotalPhotos"
         app:layout_constraintTop_toTopOf="@+id/tvTitleTotalPhotos" />
+
+
+    <TextView
+        android:id="@+id/tvTitleBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirheavy"
+        android:text="@string/fragment_photo_favorite_title_bio"
+        android:textSize="@dimen/font_size_textview"
+        app:layout_constraintStart_toStartOf="@id/tvTitleTotalPhotos"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleTotalPhotos" />
+
+    <TextView
+        android:id="@+id/tvBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirmedium"
+        android:text="bio"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTitleBio"
+        app:layout_constraintTop_toTopOf="@+id/tvTitleBio" />
+
 
     <ProgressBar
         android:id="@+id/progressBarUserProfile"

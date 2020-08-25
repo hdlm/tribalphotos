@@ -10,14 +10,10 @@ import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
-import com.tribal.tribalphotos.model.unsplash.Photo
-import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
 import com.tribal.tribalphotos.ui.photo.PhotoGalleryViewModel
 import kotlinx.android.synthetic.main.fragment_photo_favorite_profile.*
-import kotlinx.android.synthetic.main.fragment_photo_gallery.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
 
@@ -42,15 +38,15 @@ class PhotoFavoriteProfileFragment : Fragment(), KoinComponent {
 }
 
     private fun initViews() {
-        photoGalleryViewModel.userLiveDataProfileSelected?.let {
+        photoGalleryViewModel.userProfileSelectedLiveData?.let {
             try {
-                updateUserProfile(photoGalleryViewModel.userLiveDataProfileSelected as PhotoGalleryItemModel)
+                updateUserProfile(photoGalleryViewModel.userProfileSelectedLiveData as PhotoGalleryItemModel)
             } catch (ignore: java.lang.ClassCastException) { }
         }
     }
 
     private fun observeViewModel(): Unit = photoGalleryViewModel.run {
-        userLiveDataProfileSelected?.let { itemModel ->
+        userProfileSelectedLiveData?.let { itemModel ->
             itemModel.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     updateUserProfile(it as PhotoGalleryItemModel)
@@ -76,7 +72,7 @@ class PhotoFavoriteProfileFragment : Fragment(), KoinComponent {
             tvUsername.text = user?.id
             tvPortfolio.text = user?.portfolio_url
             tvBio.text = user?.bio
-            tvTotalPhotos.text = total_photo.toString()
+//            tvTotalPhotos.text = total_photos.toString()
         }
     }
 

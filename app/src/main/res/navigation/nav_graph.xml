@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.tribal.tribalphotos.ui.home.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action__home_to_gallery"
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/navigation_photos"
         android:name="com.tribal.tribalphotos.ui.photo.PhotoGalleryFragment"
-        android:label="fragment_photo_gallery"
+        android:label="@string/title_photo"
         tools:layout="@layout/fragment_photo_gallery" >
         <action
             android:id="@+id/action_gallery_to_userprofile"
@@ -35,11 +35,19 @@
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.tribal.tribalphotos.ui.favorite.PhotoFavoriteFragment"
-        android:label="fragment_photo_favorite"
-        tools:layout="@layout/fragment_photo_favorite" />
+        android:label="@string/title_favorite"
+        tools:layout="@layout/fragment_photo_favorite" >
+        <action
+            android:id="@+id/action_favorite_to_userprofile"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.tribal.tribalphotos.ui.profile.UserProfileFragment"
-        android:label="fragment_user_profile"
+        android:label="@string/title_user_profile"
         tools:layout="@layout/fragment_user_profile" />
 </navigation>

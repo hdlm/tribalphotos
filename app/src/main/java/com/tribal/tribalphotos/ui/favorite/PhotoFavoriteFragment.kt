@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tribal.tribalphotos.MainActivity
 import com.tribal.tribalphotos.R
@@ -14,9 +15,12 @@ import com.tribal.tribalphotos.model.Favorite
 import com.tribal.tribalphotos.ui.adapter.DynamicAdapter
 import com.tribal.tribalphotos.ui.adapter.itemModel.FavoriteItemModel
 import com.tribal.tribalphotos.ui.adapter.itemModel.ItemModel
+import com.tribal.tribalphotos.ui.adapter.itemModel.PhotoGalleryItemModel
 import com.tribal.tribalphotos.ui.adapter.typeFactory.FavoriteTypesFactoryImpl
+import com.tribal.tribalphotos.ui.photo.PhotoGalleryViewModel
 import com.tribal.tribalphotos.utils.makeGoneAlpha
 import com.tribal.tribalphotos.utils.makeVisibleAlpha
+import com.tribal.tribalphotos.utils.mapTo
 import kotlinx.android.synthetic.main.fragment_photo_favorite.*
 import kotlinx.android.synthetic.main.no_items_layout.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -24,7 +28,7 @@ import org.koin.core.KoinComponent
 
 
 class PhotoFavoriteFragment : Fragment(), KoinComponent {
-
+    private val photoGalleryViewModel: PhotoGalleryViewModel by sharedViewModel()
     private val favoriteViewModelPhoto: PhotoFavoriteViewModel by sharedViewModel()
 
     override fun onCreateView(
@@ -48,16 +52,6 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
     private fun initView(): Unit {
 
-//        rvGallery.layoutManager = BeelineLayoutManager().apply {
-//            configLookup = object : BeelineLayoutManager.ConfigLookup {
-//                override fun getSpanSize(position: Int): Int = 2
-//                override fun getZIndex(position: Int): Float = 1f
-//                override fun isSolid(position: Int): Boolean = true
-//                override fun getVerticalOverlay(position: Int): Float = 0f
-//                override fun getGravity(position: Int): BeelineLayoutManager.Gravity = BeelineLayoutManager.Gravity.LEFT
-//            }
-//        }
-//        rvGallery.clipToOutline = true
         rvFavorite.layoutManager = LinearLayoutManager(context)
         rvFavorite.setHasFixedSize(true)
 
@@ -92,6 +86,11 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
                     adapter = DynamicAdapter(
                         typeFactory = FavoriteTypesFactoryImpl(),
                         items = getFavoritesForAdapter(list),
+                        onClick = { itemModel ->
+                            photoGalleryViewModel.userProfileSelectedLiveData.postValue((itemModel as FavoriteItemModel).model)
+                            Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - onClick event fire")
+                            requireView().findNavController().navigate(R.id.action_favorite_to_userprofile)
+                        },
                         onClickFavorite = { itemModel ->
                             val favorite = (itemModel as FavoriteItemModel).model
                             Log.d(MainActivity.TAG, "onClick event fire")

@@ -15,10 +15,17 @@ inline fun <reified T : Any> Any?.mapTo(newClass: Class<T>): T? =
         Favorite::class.java -> {
             val photo = (this as Photo)
             Favorite().apply {
-                username =photo.user?.id
+                username = photo.user?.id
+                name = photo.user?.name
                 bio = photo.user?.bio
+                photo.urls?.full?.let {
+                    linkImage = it
+                } ?: run {
+                    linkImage = photo.urls?.regular
+                }
                 linkProfile = photo.user?.portfolio_url
-                totalPhotos = photo.total_photo
+                totalLikes = photo.user?.total_likes!!
+                totalPhotos = photo.user?.total_photos!!
                 photo.user?.profile_image?.medium?.let {
                     profileImage = it
                 } ?: run {

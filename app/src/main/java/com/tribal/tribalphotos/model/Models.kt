@@ -11,11 +11,16 @@ class Favorite {
     @NotNull
     var id: Int = 0
     var username: String? = null
+    var name: String? = null
     var bio: String? = null
+    @ColumnInfo(name ="link_image")
+    var linkImage: String? = null
     @ColumnInfo(name ="link_profile")
     var linkProfile: String? = null
     @ColumnInfo(name = "profile_image")
     var profileImage: String? = null
+    @ColumnInfo(name = "total_likes")
+    var totalLikes: Int = 0
     @ColumnInfo(name = "total_photos")
     var totalPhotos: Int = 0
 

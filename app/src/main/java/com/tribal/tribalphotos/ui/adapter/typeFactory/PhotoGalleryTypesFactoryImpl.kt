@@ -8,7 +8,7 @@ import com.tribal.tribalphotos.ui.adapter.holder.PhotoGalleryHolder
 
 class PhotoGalleryTypesFactoryImpl : PhotoGalleryTypesFactory {
 
-    override fun typePhotoGallety(type: Photo) =
+    override fun typePhotoGallery(type: Photo) =
         R.layout.item_photo_row
 
     override fun holder(type: Int, view: View): DynamicAdapterViewHolder<*> {

@@ -1,12 +1,9 @@
 <resources>
     <string name="app_name">TribalPhotos</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
     <string name="title_photo">Photos</string>
     <string name="title_favorite">Favorites</string>
-    <string name="title_profile">Profile</string>
+    <string name="title_user_profile">User Profile</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_photo_gallery_title_group">PHOTOS</string>
@@ -20,6 +17,7 @@
     <string name="fragment_photo_favorite_title_info">Portfolio:</string>
     <string name="fragment_photo_favorite_title_portfolio">Portfolio:</string>
     <string name="fragment_photo_favorite_title_bio">Bio:</string>
+    <string name="fragment_photo_favorite_title_likes_photos">Total Likes:</string>
     <string name="fragment_photo_favorite_title_total_photos">Total Photos:</string>
     <string name="fragment_photo_favorite_button_remove_favorite">Remove</string>
     <string name="fragment_photo_favorite_no_items">We couldn\'t find any favorite image</string>

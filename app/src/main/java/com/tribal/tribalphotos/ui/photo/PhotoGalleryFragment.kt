@@ -97,6 +97,8 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
                         typeFactory = PhotoGalleryTypesFactoryImpl(),
                         items = getPhotosGalleryForAdapter(list),
                         onClick = { itemModel ->
+                            val favorite = (itemModel as PhotoGalleryItemModel).model.mapTo(Favorite::class.java)
+                            photoGalleryViewModel.userProfileSelectedLiveData.postValue(favorite)
                             Log.d(MainActivity.TAG, "${this.javaClass.simpleName} - onClick event fire")
                             requireView().findNavController().navigate(R.id.action_gallery_to_userprofile)
                         },

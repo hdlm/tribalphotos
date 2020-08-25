@@ -7,6 +7,6 @@ import com.tribal.tribalphotos.ui.adapter.typeFactory.PhotoGalleryTypesFactory
 
 class PhotoGalleryItemModel(val model: Photo) : ItemModel() {
     override fun type(typesFactory: BaseTypesFactory): Int {
-        return (typesFactory as PhotoGalleryTypesFactory).typePhotoGallety(model)
+        return (typesFactory as PhotoGalleryTypesFactory).typePhotoGallery(model)
     }
 }

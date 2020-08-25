@@ -21,14 +21,16 @@ class PhotoFavoriteHolder(private val view: View) : DynamicAdapterViewHolder<Fav
                 onClickFavorite(item)
             }
             val imgvPicture = findViewById<ImageView>(R.id.imgvItem)
+            imgvPicture.setOnClickListener {
+                onClick(item)
+            }
             imgvPicture.clipToOutline = true
 
             // round corners
             val radius = 20
             val margin = 5
             val transformation: Transformation = RoundedCornersTransformation(radius, margin)
-            Picasso.get().load(favorite.profileImage).transform(transformation).into(imgvPicture)
-            //PENDING cargar la imagen del user profile al hacer clic sobre la foto
+            Picasso.get().load(favorite.linkImage).transform(transformation).into(imgvPicture)
         }
 
     }

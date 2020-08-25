@@ -4,5 +4,5 @@ import com.tribal.tribalphotos.model.unsplash.Photo
 
 interface PhotoGalleryTypesFactory :
     BaseTypesFactory {
-    fun typePhotoGallety(type: Photo): Int
+    fun typePhotoGallery(type: Photo): Int
 }
