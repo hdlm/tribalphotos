@@ -19,7 +19,8 @@ class PhotoRepositoryImpl(context: Context) : PhotoRepository, KoinComponent {
 
     override suspend fun getPhotos(): List<Photo?>? =
         suspendCancellableCoroutine { cont ->
-            val url = "https://api.unsplash.com/photos/?client_id=oP_fIPn5u0SWwECyN5Ko7dvl5bFJ1gX_PXenVSsPg3Q&random?count=10"
+//            val url = "https://api.unsplash.com/photos/?client_id=oP_fIPn5u0SWwECyN5Ko7dvl5bFJ1gX_PXenVSsPg3Q&random?count=10"
+            val url = "https://api.unsplash.com/photos/random/?client_id=oP_fIPn5u0SWwECyN5Ko7dvl5bFJ1gX_PXenVSsPg3Q&orientation=portrait&count=10"
             val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url, null,
                 Response.Listener { response ->
                     if (cont.isActive) {

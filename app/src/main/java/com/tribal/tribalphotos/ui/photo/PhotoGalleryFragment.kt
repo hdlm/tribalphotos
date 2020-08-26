@@ -66,6 +66,10 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
         rvGallery.clipToOutline = true
         rvGallery.setHasFixedSize(true)
 
+        buttonMore.setOnClickListener {
+            photoGalleryViewModel.getRandomPhotos()
+        }
+
     }
 
     private fun observeViewModel() = photoGalleryViewModel.run {

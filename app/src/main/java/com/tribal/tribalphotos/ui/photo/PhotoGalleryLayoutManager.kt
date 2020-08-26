@@ -4,9 +4,11 @@ import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tribal.tribalphotos.MainActivity
 import kotlin.math.max
 import kotlin.math.min
 
@@ -15,6 +17,8 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
     enum class Gravity {
         LEFT, RIGHT
     }
+
+
 
     data class State(val anchorPosition: Int, val anchorOffset: Int) : Parcelable {
 
@@ -233,27 +237,23 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
 
         for (i in startPosition until adapterItemCount) {
 
+
             if (hardTop > availableBottom) break
 
             val view = recycler.getViewForPosition(i)
             addView(view)
 //            view.setBeelineLayoutParams(i)
-            if (i == 0) {
-                configLookup = object : ConfigLookup {
-                    override fun getSpanSize(position: Int): Int = 2
-                    override fun getZIndex(position: Int): Float = 1f
-                    override fun isSolid(position: Int): Boolean = true
-                    override fun getVerticalOverlay(position: Int): Float = 0f
-                    override fun getGravity(position: Int): Gravity = Gravity.LEFT
-                }
-            } else {
-                configLookup = object : ConfigLookup {
-                    override fun getSpanSize(position: Int): Int = 1
-                    override fun getZIndex(position: Int): Float = 1f
-                    override fun isSolid(position: Int): Boolean = true
-                    override fun getVerticalOverlay(position: Int): Float = 0.5f
-                    override fun getGravity(position: Int): Gravity = if (i % 2 == 0) Gravity.RIGHT else Gravity.LEFT
-                }
+            configLookup = when (i) {
+                0 -> cfgBig()
+                1 -> cfgLeftDown()
+                2 -> cfgRightDown()
+                3 -> cfgLeftDown()
+                4 -> cfgRightDown()
+                5 -> cfgLeftDown()
+                6 -> cfgRightDown()
+                7 -> cfgLeftDown()
+                8 -> cfgRightDown()
+                else -> cfgBig()
             }
             view.setBeelineLayoutParams(i)
             view.measure()
@@ -273,11 +273,11 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
                 layoutView(view, top, bottom)
                 softTop = bottom
             }
+            Log.d(MainActivity.TAG, "position:$i, softTop:$softTop, hardTop:$hardTop, isSolid:${lp.isSolid}, zIndex:${lp.zIndex}, vertOverlay:${lp.verticalOverlay}r")
         }
     }
 
     private fun fillTop(recycler: RecyclerView.Recycler) {
-        //PENDING replicar as fillBottom lookup
 
         if (childCount == 0) return
 
@@ -301,6 +301,18 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
             val view = recycler.getViewForPosition(i)
             anchorPosition--
             addView(view, 0)
+            configLookup = when (i) {
+                9 -> cfgBig()
+                8 -> cfgRightUp()
+                7 -> cfgLeftUp()
+                6 -> cfgRightUp()
+                5 -> cfgLeftUp()
+                4 -> cfgRightUp()
+                3 -> cfgLeftUp()
+                2 -> cfgRightUp()
+                1 -> cfgLeftUp()
+                else -> cfgBig()
+            }
             view.setBeelineLayoutParams(i)
             view.measure()
             val lp = view.layoutParams()
@@ -319,6 +331,7 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
                 layoutView(view, top, bottom)
                 softBottom = top
             }
+            Log.d(MainActivity.TAG, "position:$i, softTop:$softBottom, hardTop:$hardBottom, isSolid:${lp.isSolid}, zIndez:${lp.zIndex}, vertOverlay:${lp.verticalOverlay}r")
         }
     }
 
@@ -371,4 +384,45 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
             }
         }
     }
+
+    private fun cfgBig(): ConfigLookup = object : ConfigLookup {
+        override fun getSpanSize(position: Int): Int = 2
+        override fun getZIndex(position: Int): Float = 1f
+        override fun isSolid(position: Int): Boolean = true
+        override fun getVerticalOverlay(position: Int): Float = 0f
+        override fun getGravity(position: Int): Gravity = Gravity.LEFT
+    }
+
+    private fun cfgLeftDown(): ConfigLookup = object : ConfigLookup {
+        override fun getSpanSize(position: Int): Int = 1
+        override fun getZIndex(position: Int): Float = 1f
+        override fun isSolid(position: Int): Boolean = true
+        override fun getVerticalOverlay(position: Int): Float =0.5f
+        override fun getGravity(position: Int): Gravity = Gravity.LEFT
+    }
+
+    private fun cfgRightDown(): ConfigLookup = object : ConfigLookup {
+        override fun getSpanSize(position: Int): Int = 1
+        override fun getZIndex(position: Int): Float = 1f
+        override fun isSolid(position: Int): Boolean = false
+        override fun getVerticalOverlay(position: Int): Float = 0f
+        override fun getGravity(position: Int): Gravity = Gravity.RIGHT
+    }
+
+    private fun cfgLeftUp(): ConfigLookup = object : ConfigLookup {
+        override fun getSpanSize(position: Int): Int = 1
+        override fun getZIndex(position: Int): Float = 1f
+        override fun isSolid(position: Int): Boolean = false
+        override fun getVerticalOverlay(position: Int): Float =0f
+        override fun getGravity(position: Int): Gravity = Gravity.LEFT
+    }
+
+    private fun cfgRightUp(): ConfigLookup = object : ConfigLookup {
+        override fun getSpanSize(position: Int): Int = 1
+        override fun getZIndex(position: Int): Float = 1f
+        override fun isSolid(position: Int): Boolean = true
+        override fun getVerticalOverlay(position: Int): Float = 0.5f
+        override fun getGravity(position: Int): Gravity = Gravity.RIGHT
+    }
+
 }
