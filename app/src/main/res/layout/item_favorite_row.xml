@@ -31,7 +31,7 @@
             android:background="@drawable/bg_photo_favorite_button"
             android:fontFamily="@font/avenirmedium"
             android:text="@string/fragment_photo_favorite_button_remove_favorite"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorTextButton"
             android:textSize="@dimen/font_size_button"
             />
 

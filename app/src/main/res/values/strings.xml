@@ -5,7 +5,13 @@
     <string name="title_favorite">Favorites</string>
     <string name="title_user_profile">User Profile</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_home_button">Go to Gallery</string>
+    <string name="fragment_home_welcome">This app is a demonstration prepared for the evaluation of my technical skills on android.\n\nIt was based on the Android Component Architecture and uses the following technologies and libraries:\n
+\n-Navigation Component\n-MVVM pattern\n -Dependency injection with Koin \n-Local persistence with Room
+\n-Networking with Coroutines and Volley library \n-Extensions
+\n- Image management with Picasso library \n-Obfuscation with Proguard</string>
+
+
     <string name="fragment_photo_gallery_title_group">PHOTOS</string>
     <string name="fragment_photo_gallery_title_likes">Likes:</string>
     <string name="fragment_photo_gallery_no_items">We couldn\'t find any image.\nMaybe, we could have problem\nwith the Internet connection.</string>
