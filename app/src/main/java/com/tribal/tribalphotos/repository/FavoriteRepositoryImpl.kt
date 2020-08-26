@@ -28,7 +28,7 @@ class FavoriteRepositoryImpl(private val favoriteDao: FavoriteDao) : FavoriteRep
     }
 
     override suspend fun getAllFavorites(): List<Favorite>? {
-        allFavorites = favoriteDao?.getAllFavorites()
+        allFavorites = favoriteDao.getAllFavorites()
         return allFavorites
     }
 }

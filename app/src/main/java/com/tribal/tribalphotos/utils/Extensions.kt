@@ -25,14 +25,14 @@ inline fun <reified T : Any> Any?.mapTo(newClass: Class<T>): T? =
                 }
                 linkProfile = photo.user?.portfolio_url
                 totalLikes = photo.user?.total_likes!!
-                totalPhotos = photo.user?.total_photos!!
-                photo.user?.profile_image?.medium?.let {
+                totalPhotos = photo.user.total_photos!!
+                photo.user.profile_image?.medium?.let {
                     profileImage = it
                 } ?: run {
-                    photo.user?.profile_image?.large?.let {
+                    photo.user.profile_image?.large?.let {
                         profileImage = it
                     } ?: run {
-                        photo.user?.profile_image?.small?.let {
+                        photo.user.profile_image?.small?.let {
                             profileImage= it
                         }
                     }

@@ -10,7 +10,7 @@
     <string name="fragment_photo_gallery_title_likes">Likes:</string>
     <string name="fragment_photo_gallery_no_items">We couldn\'t find any image.\nMaybe, we could have problem\nwith the Internet connection.</string>
 
-    <string name="fragment_photo_favorite_title_group">DETAILS</string>
+    <string name="fragment_photo_favorite_title_group">SEARCH by Name or Username</string>
     <string name="fragment_photo_favorite_txt_search_hint">Search</string>
     <string name="fragment_photo_favorite_title_username">Username:</string>
     <string name="fragment_photo_favorite_title_name">Name:</string>

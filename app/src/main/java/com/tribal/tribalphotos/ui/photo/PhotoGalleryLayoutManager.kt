@@ -1,3 +1,5 @@
+package com.tribal.tribalphotos.ui.photo
+
 import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
@@ -237,7 +239,7 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
             addView(view)
 //            view.setBeelineLayoutParams(i)
             if (i == 0) {
-                configLookup = object : PhotoGalleryLayoutManager.ConfigLookup {
+                configLookup = object : ConfigLookup {
                     override fun getSpanSize(position: Int): Int = 2
                     override fun getZIndex(position: Int): Float = 1f
                     override fun isSolid(position: Int): Boolean = true
@@ -245,12 +247,12 @@ class PhotoGalleryLayoutManager : RecyclerView.LayoutManager() {
                     override fun getGravity(position: Int): Gravity = Gravity.LEFT
                 }
             } else {
-                configLookup = object : PhotoGalleryLayoutManager.ConfigLookup {
+                configLookup = object : ConfigLookup {
                     override fun getSpanSize(position: Int): Int = 1
                     override fun getZIndex(position: Int): Float = 1f
                     override fun isSolid(position: Int): Boolean = true
                     override fun getVerticalOverlay(position: Int): Float = 0.5f
-                    override fun getGravity(position: Int): PhotoGalleryLayoutManager.Gravity = if (i % 2 == 0) Gravity.RIGHT else Gravity.LEFT
+                    override fun getGravity(position: Int): Gravity = if (i % 2 == 0) Gravity.RIGHT else Gravity.LEFT
                 }
             }
             view.setBeelineLayoutParams(i)

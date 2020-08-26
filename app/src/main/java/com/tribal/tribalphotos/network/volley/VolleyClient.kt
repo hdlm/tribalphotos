@@ -36,18 +36,17 @@ class VolleyClient constructor(context: Context) {
             })
     }
 
-    val requestQueue: RequestQueue by lazy {
+    private val requestQueue: RequestQueue by lazy {
         // applicationContext is key, it keeps you from leaking the
         // Activity or BroadcastReceiver if someone passes one in.
         Volley.newRequestQueue(context.applicationContext)
     }
 
     fun <T> addToRequestQueue(req: Request<T>, socketTimeout: Int = DefaultRetryPolicy.DEFAULT_TIMEOUT_MS) {
-        req.setRetryPolicy(DefaultRetryPolicy(
+        req.retryPolicy = DefaultRetryPolicy(
             socketTimeout,
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT )
-        )
         requestQueue.add(req)
     }
 }

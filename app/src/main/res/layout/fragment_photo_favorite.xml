@@ -7,47 +7,36 @@
     android:orientation="vertical"
     tools:context=".ui.favorite.PhotoFavoriteFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenirheavy"
+        android:layout_marginStart="8dp"
+        android:text="@string/fragment_photo_favorite_title_group"
+        android:textSize="@dimen/font_size_textview_header" />
+
+
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchFilter"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/avenirheavy"
-            android:layout_marginStart="8dp"
-            android:text="@string/fragment_photo_favorite_title_group"
-            android:textSize="@dimen/font_size_textview_header" />
+            android:queryHint="@string/fragment_photo_favorite_search_hint"
+            app:iconifiedByDefault="false">
+            <requestFocus />
+        </androidx.appcompat.widget.SearchView>
 
-        <!--
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:paddingStart="8dp"
-            android:src="@android:drawable/ic_menu_search"
-            android:contentDescription="@string/fragment_photo_favorite_content_descrip" />
-
-        <EditText
-            android:id="@+id/editTextSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:ems="10"
-            android:fontFamily="@font/avenirbookoblique"
-            android:inputType="textPersonName"
-            android:textColor="@color/colorTextSearch"
-            android:hint="@string/fragment_photo_favorite_txt_search_hint"
-            android:importantForAutofill="no" />
-            -->
-
+        <ListView
+            android:id="@+id/listViewFilter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
-    <include layout="@layout/no_items_layout"
-        android:visibility="gone"
-        android:id="@+id/lYNoElements" />
 
     <ProgressBar
         android:id="@+id/progressBarPhotoFavorite"
@@ -58,19 +47,10 @@
         android:visibility="gone" />
 
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchFilter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="@string/fragment_photo_favorite_search_hint"
-        app:iconifiedByDefault="false">
-        <requestFocus />
-    </androidx.appcompat.widget.SearchView>
+    <include layout="@layout/no_items_layout"
+        android:visibility="gone"
+        android:id="@+id/lYNoElements" />
 
-    <ListView
-        android:id="@+id/listViewFilter"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorite"

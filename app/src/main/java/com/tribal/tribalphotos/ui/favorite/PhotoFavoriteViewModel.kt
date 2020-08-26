@@ -23,7 +23,7 @@ class PhotoFavoriteViewModel ( ): BaseViewModel() {
     val favoritesLiveData = MutableLiveData<List<Favorite?>>()
     private var favoritesArrayList: List<Favorite?> = ArrayList()
     private lateinit var favoriteRepository: FavoriteRepository
-    val adapterLiveData = MutableLiveData<ArrayAdapter<String?>>()
+    val searchAdapterLiveData = MutableLiveData<ArrayAdapter<String?>>()
 
     fun prepareLocalDatabase(context: Context) =
         viewModelScope.launch {
@@ -78,10 +78,24 @@ class PhotoFavoriteViewModel ( ): BaseViewModel() {
         favoritesLiveData.postValue(favoritesArrayList)
     }
 
+    fun getFavoritesByUsernameOrName(match: String) {
+        val newList = favoritesArrayList.filter { favorite ->
+            favorite?.let {
+                with(it) {
+                    (username.equals(match.trim(), true) || name.equals(match.trim(), true))
+                }
+            }!!
+        }
+        favoritesLiveData.postValue(newList)
+        favoritesArrayList = newList
+    }
+
+
     fun getFavorites() =
         viewModelScope.launch {
             getFavoritesAsync()
         }
+
 
     private suspend fun  getFavoritesAsync() {
         val result = runCatching {

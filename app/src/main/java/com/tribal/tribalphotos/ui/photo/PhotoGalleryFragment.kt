@@ -1,6 +1,5 @@
 package com.tribal.tribalphotos.ui.photo
 
-import PhotoGalleryLayoutManager
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment

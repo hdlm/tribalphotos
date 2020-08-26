@@ -1,11 +1,14 @@
 package com.tribal.tribalphotos.ui.favorite
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -52,41 +55,66 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
 
     private fun initView(): Unit {
 
-        rvFavorite.visibility = View.GONE
+        var loading = true
+        searchFilter.clearFocus()
+        listViewFilter.visibility = View.VISIBLE
 
+        setSearchOptions(favoriteViewModelPhoto.favoritesLiveData.value)
 
-        val data = listOf("anastacia", "annabel", "andrianina", "adriana")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,data)
-        listViewFilter.adapter = adapter
+        //#region search filter
 
         searchFilter.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+            override fun onQueryTextSubmit(query: String): Boolean =
+                query.let {
+                    rvFavorite.visibility = View.VISIBLE
+                    listViewFilter.visibility = View.GONE
+                    favoriteViewModelPhoto.getFavoritesByUsernameOrName(query);
+                    searchFilter.clearFocus();
+                    false
+                }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
+                if (loading) {
+                    loading = false
+                    return false
+                }
+                newText?.let {
+                    if (it.isNotEmpty()) {
+                        if (rvFavorite.visibility == View.VISIBLE) rvFavorite.visibility = View.GONE
+                        if (listViewFilter.visibility == View.GONE) listViewFilter.visibility = View.VISIBLE
+                        favoriteViewModelPhoto.searchAdapterLiveData.value.let { adapter ->
+                            adapter?.filter?.filter(newText)
+                        }
+
+                    } else {
+                        if (rvFavorite.visibility == View.GONE) rvFavorite.visibility = View.VISIBLE
+                        if (listViewFilter.visibility == View.VISIBLE) listViewFilter.visibility = View.GONE
+                        favoriteViewModelPhoto.getFavorites()
+                    }
+                }
                 return false
             }
         })
 
-//        rvFavorite.layoutManager = LinearLayoutManager(context)
-//        rvFavorite.setHasFixedSize(true)
+        listViewFilter.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val item : String = parent.getItemAtPosition(position) as String
+            searchFilter.setQuery(item, false)
+            searchFilter.requestFocus()
+
+            showSoftKeyboard()
+
+        }
+        //#endregion
+
+        rvFavorite.layoutManager = LinearLayoutManager(context)
+        rvFavorite.setHasFixedSize(true)
 
     }
 
     private fun observeViewModel() = favoriteViewModelPhoto.run {
-//        favoritesLiveData.observe (viewLifecycleOwner, {
-//            setAdapter(it)
-//        })
-//        , favoriteViewModelPhoto.filterData.value
-//        favoriteViewModelPhoto.adapterLiveData.observe (viewLifecycleOwner, {
-//            val data = arrayOf("anabel", "annie", "anastacia","jonny","henry")
-//            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1,data)
-//            listViewFilter.adapter = adapter
-//            favoriteViewModelPhoto.adapterLiveData.postValue(adapter)
-//        })
-
+        favoritesLiveData.observe (viewLifecycleOwner, {
+            setAdapter(it)
+        })
 
         loadingState.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -120,13 +148,28 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
                         onClickFavorite = { itemModel ->
                             val favorite = (itemModel as FavoriteItemModel).model
                             Log.d(MainActivity.TAG, "onClick event fire")
-                            favoriteViewModelPhoto.delete(favorite!!)
+                            favoriteViewModelPhoto.delete(favorite)
                         }
                     )
                     makeVisibleAlpha(100)
                 }
             }
+
+            setSearchOptions(list)
+
         }
+    }
+
+    private fun setSearchOptions(list: List<Favorite?>?): Unit {
+
+        var adapter: ArrayAdapter<String?> = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, arrayOf())
+        list?.let {
+            val data = getFavoritesForSearchAdapter( it )
+            adapter =  ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, data)
+        }
+        listViewFilter.adapter = adapter
+        favoriteViewModelPhoto.searchAdapterLiveData.postValue(adapter)
+
     }
 
     private fun getFavoritesForAdapter (list: List<Favorite?>): List<ItemModel> {
@@ -135,6 +178,28 @@ class PhotoFavoriteFragment : Fragment(), KoinComponent {
             itemList.add(FavoriteItemModel(it!!))
         }
         return itemList
+    }
+
+    private fun getFavoritesForSearchAdapter (list: List<Favorite?>): Array<String?> {
+        val bufferList: MutableList<String> = ArrayList()
+        list.forEach {
+            it?.let {
+                if (!bufferList.contains(it.name.toString()))
+                    bufferList.add(it.name.toString())
+            }
+        }
+
+        val newList  = arrayOfNulls<String>(bufferList.size)
+        for (i in 0 until bufferList.size) {
+            newList[i] = bufferList[i]
+        }
+        return newList
+
+    }
+
+    private fun showSoftKeyboard() {
+
+        (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
 }
