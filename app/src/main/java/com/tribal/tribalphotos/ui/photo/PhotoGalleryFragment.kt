@@ -67,6 +67,7 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
         rvGallery.setHasFixedSize(true)
 
         buttonMore.setOnClickListener {
+            photoGalleryViewModel.loadingMoreImages = true
             photoGalleryViewModel.getRandomPhotos()
         }
 
@@ -83,6 +84,7 @@ class PhotoGalleryFragment : Fragment(), KoinComponent {
                 progressBarPhotoGallery.visibility = View.VISIBLE
             } else {
                 progressBarPhotoGallery.visibility = View.GONE
+                photoGalleryViewModel.loadingMoreImages = false
             }
         })
     }

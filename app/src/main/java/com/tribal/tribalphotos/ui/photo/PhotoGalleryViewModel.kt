@@ -19,11 +19,14 @@ class PhotoGalleryViewModel (
     val photosLiveData = MutableLiveData<List<Photo?>>()
     private lateinit var photosArrayList: List<Photo?>
     var userProfileSelectedLiveData = MutableLiveData<Favorite?>()
+    var loadingMoreImages: Boolean = true
 
-    fun getRandomPhotos() =
-        viewModelScope.launch {
-            getRandomPhotosAsync()
-        }
+    fun getRandomPhotos() {
+        if (loadingMoreImages)
+            viewModelScope.launch {
+                getRandomPhotosAsync()
+            }
+    }
 
     private suspend fun getRandomPhotosAsync() {
         val result = runCatching {
